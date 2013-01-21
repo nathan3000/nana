@@ -24,6 +24,8 @@
 
 @property (weak) id delegate;
 
+@property (strong, nonatomic) NSString *selectedMeal;
+
 @property (strong, nonatomic) TreeItem *selectedItem;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

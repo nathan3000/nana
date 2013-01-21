@@ -33,7 +33,6 @@
 		D862ECFE167BA73A004179F4 /* UIColor+AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D862ECF4167BA73A004179F4 /* UIColor+AQGridView.m */; };
 		D875F5AC16828938001CBFA3 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D875F5AB16828938001CBFA3 /* CoreDataTableViewController.m */; };
 		D875F5B116828A38001CBFA3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D875F5AF16828A38001CBFA3 /* Model.xcdatamodeld */; };
-		D875F5B416828A7B001CBFA3 /* Diary.m in Sources */ = {isa = PBXBuildFile; fileRef = D875F5B316828A7B001CBFA3 /* Diary.m */; };
 		D875F5B616828E0A001CBFA3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D875F5B516828E0A001CBFA3 /* CoreData.framework */; };
 		D875F5B81682A689001CBFA3 /* nana-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D875F5B71682A689001CBFA3 /* nana-icon.png */; };
 		D88E2B51167A2A6D006CD0BF /* MultiValueDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D88E2B50167A2A6D006CD0BF /* MultiValueDictionary.m */; };
@@ -51,6 +50,7 @@
 		D8D5957A1677AA3200BF9632 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D595791677AA3200BF9632 /* Default-568h@2x.png */; };
 		D8D595801677AA3200BF9632 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5957F1677AA3200BF9632 /* MainViewController.m */; };
 		D8D595881677B2E100BF9632 /* FoodTreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D595871677B2E100BF9632 /* FoodTreeViewController.m */; };
+		D8F3A31F16A42C4300FA28A4 /* Diary.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F3A31E16A42C4300FA28A4 /* Diary.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,8 +98,6 @@
 		D875F5AA16828938001CBFA3 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		D875F5AB16828938001CBFA3 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		D875F5B016828A38001CBFA3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		D875F5B216828A7B001CBFA3 /* Diary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Diary.h; sourceTree = "<group>"; };
-		D875F5B316828A7B001CBFA3 /* Diary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Diary.m; sourceTree = "<group>"; };
 		D875F5B516828E0A001CBFA3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D875F5B71682A689001CBFA3 /* nana-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "nana-icon.png"; path = "../nana-icon.png"; sourceTree = "<group>"; };
 		D88E2B4F167A2A6D006CD0BF /* MultiValueDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiValueDictionary.h; sourceTree = "<group>"; };
@@ -125,6 +123,8 @@
 		D8D5957F1677AA3200BF9632 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		D8D595861677B2E100BF9632 /* FoodTreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodTreeViewController.h; sourceTree = "<group>"; };
 		D8D595871677B2E100BF9632 /* FoodTreeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodTreeViewController.m; sourceTree = "<group>"; };
+		D8F3A31D16A42C4300FA28A4 /* Diary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Diary.h; sourceTree = "<group>"; };
+		D8F3A31E16A42C4300FA28A4 /* Diary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Diary.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,9 +247,9 @@
 		D88E2B4A167A295F006CD0BF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D8F3A31D16A42C4300FA28A4 /* Diary.h */,
+				D8F3A31E16A42C4300FA28A4 /* Diary.m */,
 				D875F5AF16828A38001CBFA3 /* Model.xcdatamodeld */,
-				D875F5B216828A7B001CBFA3 /* Diary.h */,
-				D875F5B316828A7B001CBFA3 /* Diary.m */,
 				D88E2B4F167A2A6D006CD0BF /* MultiValueDictionary.h */,
 				D88E2B50167A2A6D006CD0BF /* MultiValueDictionary.m */,
 				D80457AC167BEC57002204D2 /* TreeItem.h */,
@@ -415,7 +415,7 @@
 				D897F04916820FE30052F3D6 /* ItemViewController.m in Sources */,
 				D875F5AC16828938001CBFA3 /* CoreDataTableViewController.m in Sources */,
 				D875F5B116828A38001CBFA3 /* Model.xcdatamodeld in Sources */,
-				D875F5B416828A7B001CBFA3 /* Diary.m in Sources */,
+				D8F3A31F16A42C4300FA28A4 /* Diary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

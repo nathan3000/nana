@@ -18,6 +18,8 @@
 
 @synthesize managedObjectContext = _managedObjectContext;
 
+@synthesize selectedMeal;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -70,13 +72,15 @@
 }
 
 - (void) mealSelected:(id)sender
-{    
-    NSLog(@"meal selected %@", [sender currentTitle]);
+{
+    self.selectedMeal = [sender currentTitle];
+    NSLog(@"Meal selected %@", self.selectedMeal);    
     
     FoodTreeViewController *foodTreeViewController = [[FoodTreeViewController alloc] init];    
     
     foodTreeViewController.delegate = self.delegate;
     foodTreeViewController.managedObjectContext = self.managedObjectContext;
+    foodTreeViewController.selectedMeal = self.selectedMeal;
     
     [self.navigationController pushViewController:foodTreeViewController animated:YES];
     
