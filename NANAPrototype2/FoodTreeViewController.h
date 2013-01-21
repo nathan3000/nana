@@ -22,17 +22,28 @@
 
 @end
 
-@interface FoodTreeViewController : UIViewController <AQGridViewDelegate, AQGridViewDataSource, ItemViewControllerDelegate> {
+@interface FoodTreeViewController : CoreDataTableViewController <AQGridViewDelegate, AQGridViewDataSource, ItemViewControllerDelegate> {
     Tree *tree;
+    bool loadFavourites;
 }
 
 @property (strong, nonatomic) IBOutlet UILabel *labelMenuName;
 
+@property (nonatomic, strong) NSString *selectedMeal;
+
 @property (weak) id delegate;
 
-@property (nonatomic, retain) IBOutlet AQGridView *gridView;
+@property (nonatomic, retain) IBOutlet UIView *foodTreeContainerView;
 
-@property (nonatomic, retain) NSArray *items;
+@property (nonatomic, retain) IBOutlet AQGridView *foodTreeGridView;
+
+@property (nonatomic, retain) NSArray *foodTreeItems;
+
+@property (nonatomic, retain) IBOutlet UIView *favouritesContainerView;
+
+@property (nonatomic, retain) IBOutlet AQGridView *favouritesGridView;
+
+@property (nonatomic, retain) NSMutableArray *favouriteItems;
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 

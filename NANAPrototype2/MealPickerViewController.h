@@ -23,4 +23,6 @@
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+@property (nonatomic, strong) NSString *selectedMeal;
+
 @end

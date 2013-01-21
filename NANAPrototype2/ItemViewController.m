@@ -68,12 +68,14 @@
 
 - (IBAction)ok
 {
-    NSLog(@"Adding item to food diary");
+    NSLog(@"Adding %@ to food diary for %@", self.selectedItem.caption, self.selectedMeal);
     
     Diary *diary = [NSEntityDescription insertNewObjectForEntityForName:@"Diary"
                                                  inManagedObjectContext:self.managedObjectContext];
     
     diary.label = self.selectedItem.caption;
+    
+    diary.meal = self.selectedMeal;
     
     [self.managedObjectContext save:nil]; // write to database    
     
