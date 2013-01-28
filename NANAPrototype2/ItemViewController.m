@@ -77,7 +77,7 @@
     
     diary.meal = self.selectedMeal;
     
-    [self.managedObjectContext save:nil]; // write to database    
+    [self.managedObjectContext save:nil]; // write to database
     
     [delegate dismissItemModal];
 }

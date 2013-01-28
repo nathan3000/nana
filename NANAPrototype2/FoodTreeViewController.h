@@ -39,11 +39,9 @@
 
 @property (nonatomic, retain) NSArray *foodTreeItems;
 
-@property (nonatomic, retain) IBOutlet UIView *favouritesContainerView;
+@property (nonatomic, strong) ItemViewController *itemViewController;
 
-@property (nonatomic, retain) IBOutlet AQGridView *favouritesGridView;
-
-@property (nonatomic, retain) NSMutableArray *favouriteItems;
+@property (nonatomic, strong) UINavigationController *itemViewPopover;
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
