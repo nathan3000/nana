@@ -14,20 +14,31 @@
 
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)aReuseIdentifier
 {
+    return [self initWithFrame:frame reuseIdentifier:aReuseIdentifier scale:1];
+}
+
+- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)aReuseIdentifier scale:(float)scale
+{
     self = [super initWithFrame:frame reuseIdentifier: aReuseIdentifier];
     
     if (self) {
         // Initialization code
-        UIView *mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 160, 123)];
+        
+        if(!scale) {
+            scale = 1;
+        }
+        
+        UIView *mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 160*scale, 123*scale)];
         
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
         [mainView setBackgroundColor:[UIColor clearColor]];
         
-        UIImageView *frameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(9, 4, 142, 117)];
+        UIImageView *frameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(9, 4, 142*scale, 117*scale)];
         [frameImageView setImage:[UIImage imageNamed:@"tab-mask.png"]];
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 8, 135, 84)];
-        self.captionLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, 92, 127, 21)];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 8, 135*scale, 84*scale)];
+        self.captionLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, 92*scale, 136*scale, 21)];
+        
         self.captionLabel.textAlignment = NSTextAlignmentCenter;
         [captionLabel setFont:[UIFont systemFontOfSize:14]];
         [mainView addSubview:imageView];

@@ -8,7 +8,13 @@
 
 #import "AppDelegate.h"
 
-#import "MainViewController.h"
+#import <Parse/Parse.h>
+
+#import "MealDiaryViewController.h"
+
+#import "DiaryItem.h"
+
+#import "FoodTreeItem.h"
 
 @implementation AppDelegate
 
@@ -19,8 +25,47 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    MainViewController *controller = (MainViewController *)self.window.rootViewController;
+    [Parse setApplicationId:@"KeNyWuYjqSNAeqMulMdHxSX9JcVz3K59kn9ULf7U"
+                  clientKey:@"EMFSRTOSQUzpmQEZ248WutUB2nFQxavf69Wi78rL"];    
+    
+    MealDiaryViewController *controller = (MealDiaryViewController *)self.window.rootViewController;
     controller.managedObjectContext = self.managedObjectContext;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"FoodTreeItem"
+                                              inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSError *error;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    for (NSManagedObject *object in fetchedObjects) {
+        [self.managedObjectContext deleteObject:object];
+    }
+    
+    NSError* err = nil;
+    NSString* dataPath = [[NSBundle mainBundle] pathForResource:@"FoodTreeData" ofType:@"json"];
+    NSArray* FoodTreeItems = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:dataPath]
+                                                            options:kNilOptions
+                                                              error:&err];
+    
+    [FoodTreeItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        FoodTreeItem *item = [NSEntityDescription
+                                          insertNewObjectForEntityForName:@"FoodTreeItem"
+                                          inManagedObjectContext:self.managedObjectContext];
+       
+        
+        item.name = [self getValueFromJSONObject:[obj objectForKey:@"name"] withType:@"string"];
+        item.image = [self getValueFromJSONObject:[obj objectForKey:@"image"] withType:@"string"];
+        item.category = [self getValueFromJSONObject:[obj objectForKey:@"category"] withType:@"bool"];
+        item.position = [self getValueFromJSONObject:[obj objectForKey:@"position"] withType:@"number"];
+        item.parent = [self getValueFromJSONObject:[obj objectForKey:@"parent"] withType:@"string"];
+        item.options = [self getValueFromJSONObject:[obj objectForKey:@"options"] withType:@"bool"];
+       
+        NSError *error;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+    }];
+    
     return YES;
 }
 
@@ -145,6 +190,35 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (id)getValueFromJSONObject:(id)JSONObject withType:(NSString *)type
+{
+    if (JSONObject != nil) {
+        if ([type isEqualToString:@"string"]) {
+            return JSONObject;
+        } else if ([type isEqualToString:@"bool"]) {
+            if ([self isJSONTrue:JSONObject]) {
+                return [NSNumber numberWithBool:YES];
+            } else {
+                return [NSNumber numberWithBool:NO];
+            }
+        } else if ([type isEqualToString:@"number"]) {
+            return JSONObject;
+        }
+    }
+    return nil;
+}
+
+- (BOOL)isJSONTrue:(id)obj
+{
+    NSNumber * isTrue = (NSNumber *)obj;
+    if(isTrue && [isTrue boolValue] == YES)
+    {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 @end

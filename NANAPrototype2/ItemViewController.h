@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "CoreDataTableViewController.h"
 
-#import "Diary.h"
+#import "DiaryEntry.h"
 
-#import "TreeItem.h"
+#import "Item.h"
+
+#import "Helpers.h"
 
 @protocol ItemViewControllerDelegate <NSObject>
 
@@ -26,8 +30,10 @@
 
 @property (strong, nonatomic) NSString *selectedMeal;
 
-@property (strong, nonatomic) TreeItem *selectedItem;
+@property (strong, nonatomic) Item *selectedItem;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+@property (strong, nonatomic) UILabel *stepperValueLabel;
 
 @end

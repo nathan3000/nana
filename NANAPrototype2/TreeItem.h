@@ -14,6 +14,8 @@
 
 @property (nonatomic, retain) UIImage *image;
 
+@property (nonatomic) BOOL details;
+
 - (id)initWithCaption:(NSString *)theCaption andImage:(UIImage *)theImage;
 
 @end

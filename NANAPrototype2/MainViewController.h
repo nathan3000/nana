@@ -10,26 +10,42 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "MealPickerViewController.h"
-
 #import "CoreDataTableViewController.h"
 
-#import "Diary.h"
+#import "DiaryEntry.h"
 
 #import "AQGridView.h"
 
 #import "GridViewCell.h"
 
-@interface MainViewController : CoreDataTableViewController <MealPickerDelegate, FoodTreeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, AQGridViewDelegate, AQGridViewDataSource> {
-    MealPickerViewController *_mealPicker;
-    UIPopoverController *_mealPickerPopover;
-}
+#import "FoodTreeViewController.h"
 
-@property (nonatomic, retain) MealPickerViewController *mealPicker;
+#import "SettingsViewController.h"
+
+#import "ModalViewController.h"
+
+#import "Helpers.h"
+
+#import "DiaryItem.h"
+
+#import "Meal.h"
+
+@protocol MealDiaryControllerDelegate <NSObject>
+
+- (void)finishedMeal;
+
+- (void)back;
+
+@end
+
+@interface MainViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, AQGridViewDelegate, AQGridViewDataSource, FoodTreeViewControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
+    
+}
 
 @property (nonatomic, retain) FoodTreeViewController *foodTreeViewController;
 
 @property (nonatomic, retain) UINavigationController *foodTreeModal;
+@property (strong, nonatomic) IBOutlet UIView *diaryTopBorder;
 
 @property (nonatomic, retain) UIPopoverController *mealPickerPopover;
 
@@ -45,6 +61,24 @@
 
 @property (nonatomic, retain) NSMutableArray *favouriteItems;
 
-- (IBAction)addItem:(id)sender;
+@property (nonatomic, strong) NSString *selectedMeal;
+
+@property (strong, nonatomic) IBOutlet UIView *diaryView;
+
+@property (strong, nonatomic) UILabel *diaryTitleLabel;
+
+@property (strong, nonatomic) NSDictionary *finishedMeals;
+
+@property (strong, nonatomic) UIButton *foodTreeButton;
+
+@property (strong, nonatomic) IBOutlet UIButton *finishedButton;
+
+@property (strong, nonatomic) IBOutlet UILabel *mealTitle;
+
+@property (strong, nonatomic) IBOutlet UIButton *changeMealButton;
+
+@property (strong, nonatomic) NSString *color;
+
+@property (weak) id delegate;
 
 @end

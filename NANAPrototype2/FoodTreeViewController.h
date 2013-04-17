@@ -12,7 +12,7 @@
 
 #import "GridViewCell.h"
 
-#import "Tree.h"
+#import "FoodTreeItem.h"
 
 #import "ItemViewController.h"
 
@@ -23,7 +23,6 @@
 @end
 
 @interface FoodTreeViewController : CoreDataTableViewController <AQGridViewDelegate, AQGridViewDataSource, ItemViewControllerDelegate> {
-    Tree *tree;
     bool loadFavourites;
 }
 
@@ -43,7 +42,11 @@
 
 @property (nonatomic, strong) UINavigationController *itemViewPopover;
 
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+@property (strong, nonatomic) FoodTreeItem *selectedItem;
 
 @end
 

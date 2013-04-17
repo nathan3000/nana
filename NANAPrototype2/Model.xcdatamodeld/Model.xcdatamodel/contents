@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1811" systemVersion="11G63" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Diary" representedClassName="Diary" syncable="YES">
-        <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="meal" optional="YES" attributeType="String" syncable="YES"/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="11G63" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="DiaryEntry" representedClassName="DiaryEntry" syncable="YES">
+        <attribute name="time" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="user" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="item" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="DiaryItem" inverseName="diaryEntry" inverseEntity="DiaryItem" syncable="YES"/>
+        <relationship name="meal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Meal" inverseName="diaryEntry" inverseEntity="Meal" syncable="YES"/>
+    </entity>
+    <entity name="DiaryItem" representedClassName="DiaryItem" parentEntity="Item" syncable="YES">
+        <attribute name="options" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="diaryEntry" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DiaryEntry" inverseName="item" inverseEntity="DiaryEntry" syncable="YES"/>
+    </entity>
+    <entity name="FoodTreeItem" representedClassName="FoodTreeItem" parentEntity="Item" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="options" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="parent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Item" representedClassName="Item" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Meal" representedClassName="Meal" syncable="YES">
+        <attribute name="finishTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="diaryEntry" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DiaryEntry" inverseName="meal" inverseEntity="DiaryEntry" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Diary" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="DiaryEntry" positionX="-18" positionY="-171" width="128" height="105"/>
+        <element name="DiaryItem" positionX="-234" positionY="-288" width="128" height="75"/>
+        <element name="FoodTreeItem" positionX="178" positionY="-285" width="128" height="105"/>
+        <element name="Item" positionX="-20" positionY="-360" width="128" height="75"/>
+        <element name="Meal" positionX="180" positionY="-126" width="128" height="120"/>
     </elements>
 </model>

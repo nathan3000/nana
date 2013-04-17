@@ -10,7 +10,7 @@
 
 @implementation TreeItem
 
-@synthesize caption, image;
+@synthesize caption, image, details;
 
 - (id)initWithCaption:(NSString *)theCaption andImage:(UIImage *)theImage
 {
@@ -18,6 +18,7 @@
     if (self) {
         self.caption = theCaption;
         self.image = theImage;
+        self.details = NO;
     }
     return self;
 }

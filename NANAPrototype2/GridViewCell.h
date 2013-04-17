@@ -16,4 +16,7 @@
 
 @property (nonatomic, retain) UILabel *captionLabel;
 
+- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)aReuseIdentifier scale:(float)scale;
+
+
 @end

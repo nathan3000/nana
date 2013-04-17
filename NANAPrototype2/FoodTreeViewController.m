@@ -10,6 +10,8 @@
 
 #import "MultiValueDictionary.h"
 
+#import "Helpers.h"
+
 @interface FoodTreeViewController ()
 
 @end
@@ -20,15 +22,19 @@
 
 @synthesize selectedMeal;
 
-@synthesize foodTreeContainerView, foodTreeGridView, foodTreeItems;
+@synthesize foodTreeContainerView, foodTreeGridView;
+
+@synthesize foodTreeItems = _foodTreeItems;
 
 @synthesize itemViewController = _itemViewController;
 
 @synthesize itemViewPopover = _itemViewPopover;
 
-@synthesize delegate;
+@synthesize delegate = _delegate;
 
 @synthesize managedObjectContext = _managedObjectContext;
+
+@synthesize selectedItem = _selectedItem;
 
 - (id)init
 {
@@ -52,18 +58,12 @@
     return self;
 }
 
-- (id)initWithData:(id)data
+- (id)initWithParent:(id)parent
 {
     self = [super init];
     if (self) {
         // Custom initialization
-        
-        NSLog(@"hit initWithData");
-        
-        tree = [[Tree alloc] init];
-        
-        self.foodTreeItems = [tree getItems:data];
-        
+        self.selectedItem = parent;
     }
     
     return self;
@@ -80,19 +80,26 @@
 {
     [super viewDidLoad];
     
+    [self setupFetchedResultsController:self.selectedItem.name];
+    
     self.navigationController.navigationBar.topItem.title = @"Food Finder";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
-    
-    
-    [self setupFetchedResultsController];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                                                             style:UIBarButtonItemStyleBordered
+                                                                            target:self
+                                                                            action:@selector(back)
+                                             ];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                                           target:self
+                                                                                           action:@selector(cancel)
+                                              ];
     
     UIImage * backgroundPattern = [UIImage imageNamed:@"grey-bg.png"];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:backgroundPattern]];
     
     // Create Food Tree view
-    self.foodTreeContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1000, 180)];
+    self.foodTreeContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, self.view.bounds.size.height)];
     
-    self.foodTreeGridView = [[AQGridView alloc] initWithFrame:CGRectMake(0, 50, self.view.bounds.size.width, self.view.bounds.size.height)];
+    self.foodTreeGridView = [[AQGridView alloc] initWithFrame:CGRectMake(0, 10, 1024, self.view.bounds.size.height)];
     self.foodTreeGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.foodTreeGridView.autoresizesSubviews = YES;
     self.foodTreeGridView.delegate = self;
@@ -102,18 +109,36 @@
     
     [self.view addSubview:self.foodTreeContainerView];
     
-    if (tree == nil) {
-        tree = [[Tree alloc] init];
-        
-        self.foodTreeItems = [tree getItems:@"root"];
-    }
+    self.foodTreeItems = [self.fetchedResultsController fetchedObjects];
     
     [self.foodTreeGridView reloadData];
 }
 
+- (void)setupFetchedResultsController:(NSString *)parent
+{
+    // 1 - Decide what Entity you want
+    NSString *entityName = @"FoodTreeItem"; // Put your entity name here
+    
+    // 2 - Request that Entity
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:entityName];
+    
+    // 3 - Filter it if you want
+    request.predicate = [NSPredicate predicateWithFormat:@"parent = %@", parent];
+    
+    // 4 - Sort it if you want
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"position"                                                                                     ascending:YES]];
+    
+    // 5 - Fetch it
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+    [self performFetch];
+}
+
 - (NSUInteger)numberOfItemsInGridView:(AQGridView *)aGridView
 {
-    return [foodTreeItems count];
+    return [self.foodTreeItems count];
 }
 
 - (AQGridViewCell *) gridView:(AQGridView *)aGridView cellForItemAtIndex:(NSUInteger)index
@@ -122,63 +147,66 @@
     GridViewCell *cell = (GridViewCell *)[aGridView dequeueReusableCellWithIdentifier:PlainCellIdentifier];       
 
     if (cell == nil) {
-        cell = [[GridViewCell alloc] initWithFrame:CGRectMake(0.0, 0.0, 160, 123) reuseIdentifier:PlainCellIdentifier];
+        cell = [[GridViewCell alloc] initWithFrame:CGRectMake(0.0, 0.0, 160*1.25, 123*1.25) reuseIdentifier:PlainCellIdentifier scale:1.25];
     }
     
-    TreeItem *item = [foodTreeItems objectAtIndex:index];
-    [cell.imageView setImage:item.image];
-    [cell.captionLabel setText:item.caption];
+    Item *item = [self.foodTreeItems objectAtIndex:index];
+    [cell.imageView setImage:[UIImage imageNamed:item.image]];
+    [cell.captionLabel setText:item.name];
        
     return cell;
 }
 
 - (CGSize) portraitGridCellSizeForGridView:(AQGridView *)aGridView
 {
-     return ( CGSizeMake(160.0, 123) );
+     return ( CGSizeMake(160.0*1.25, 123*1.25) );
 }
 
 -(void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
 {
-    TreeItem *selectedItem = [[TreeItem alloc] init];
+    FoodTreeItem *selectedItem = [self.foodTreeItems objectAtIndex:index];
     
-    selectedItem = [foodTreeItems objectAtIndex:index];
-
+    /*
     
-    // Create the view controller and initialize it with the
-    // next level of data.
-    FoodTreeViewController *viewController = [[FoodTreeViewController alloc]
-                                              initWithData:[selectedItem caption]];
+    if ([selectedItem.category boolValue] == NO) {
+        if ([selectedItem.options boolValue] == NO) {
+            [Helpers addItemToDiary:selectedItem forMeal:self.selectedMeal withContext:self.managedObjectContext];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+                        
+            self.itemViewController = [[ItemViewController alloc] init];
+            
+            self.itemViewController.delegate = self;
+            
+            self.itemViewController.managedObjectContext = self.managedObjectContext;
+            
+            self.itemViewController.selectedItem = selectedItem;
+            
+            self.itemViewController.selectedMeal = self.selectedMeal;
+            
+            //[self presentModalViewController:self.itemViewController andSize:CGSizeMake(500, 500) andModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+            
+        }        
+    } 
+     
+     */
     
-    viewController.selectedMeal = self.selectedMeal;
-    
-    self.foodTreeItems = [tree getItems:[selectedItem caption]];
-    
-    if (self.foodTreeItems == nil) {
+    if ([selectedItem.category boolValue] == YES) {
+        // Create the view controller and initialize it with the
+        // next level of data.
+        FoodTreeViewController *viewController = [[FoodTreeViewController alloc]
+                                                  initWithParent:selectedItem];
         
-        self.itemViewController = [[ItemViewController alloc] init];
-        
-        self.itemViewController.delegate = self;
-        
-        self.itemViewController.managedObjectContext = self.managedObjectContext;
-        
-        self.itemViewController.selectedItem = selectedItem;
-        
-        self.itemViewController.selectedMeal = self.selectedMeal;
-        
-        self.itemViewPopover = [[UINavigationController alloc] initWithRootViewController:_itemViewController];
-        
-        self.itemViewPopover.modalPresentationStyle = UIModalPresentationFormSheet;
-        
-        [self presentViewController:self.itemViewPopover animated:YES completion:nil];
-        
-    } else {
+        viewController.selectedMeal = self.selectedMeal;
         viewController.delegate = self.delegate;
         viewController.managedObjectContext = self.managedObjectContext;
-        [[self navigationController] pushViewController:viewController
-                                               animated:NO];
-    }
-
-    
+        [[self navigationController] pushViewController:viewController animated:NO];
+        
+    } else {
+        [Helpers selectItem:selectedItem forMeal:selectedMeal withController:self andContext:self.managedObjectContext];
+        
+        [self dismissModalViewControllerAnimated:YES];
+    }    
 }
 
 - (void)didReceiveMemoryWarning
@@ -189,7 +217,7 @@
 
 - (void)dismissItemModal
 {
-    [delegate dismissMainPopover];
+    [self.delegate dismissMainPopover];
 }
 
 - (void)cancel
@@ -198,27 +226,10 @@
     
 }
 
-- (void)setupFetchedResultsController
+- (void)back
 {
-    // 1 - Decide what Entity you want
-    NSString *entityName = @"Diary"; // Put your entity name here
-    
-    // 2 - Request that Entity
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:entityName];
-    
-    // 3 - Filter it if you want
-    //request.predicate = [NSPredicate predicateWithFormat:@"%K like %@", @"meal", meal];
-    
-    // 4 - Sort it if you want
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"label"
-                                                                                     ascending:YES
-                                                                                      selector:@selector(localizedCaseInsensitiveCompare:)]];
-    // 5 - Fetch it
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                        managedObjectContext:self.managedObjectContext
-                                                                          sectionNameKeyPath:nil
-                                                                                   cacheName:nil];
-    [self performFetch];
+    NSLog(@"hit back button");
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
