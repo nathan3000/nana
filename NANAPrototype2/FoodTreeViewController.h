@@ -36,8 +36,6 @@
 
 @property (nonatomic, retain) IBOutlet AQGridView *foodTreeGridView;
 
-@property (nonatomic, retain) NSArray *foodTreeItems;
-
 @property (nonatomic, strong) ItemViewController *itemViewController;
 
 @property (nonatomic, strong) UINavigationController *itemViewPopover;

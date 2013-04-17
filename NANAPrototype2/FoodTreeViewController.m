@@ -24,8 +24,6 @@
 
 @synthesize foodTreeContainerView, foodTreeGridView;
 
-@synthesize foodTreeItems = _foodTreeItems;
-
 @synthesize itemViewController = _itemViewController;
 
 @synthesize itemViewPopover = _itemViewPopover;
@@ -59,11 +57,23 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    [super viewDidLoad];    
     
+    // Setup the appearance of the view
+    [self setupView];        
+            
+    // Setup the fetchedResultsController with the food tree items for a given parent item
+    [self setupFetchedResultsController:self.selectedItem.name];
+        
+    // Reload the grid view
+    [self.foodTreeGridView reloadData];
+}
+
+- (void)setupView
+{
     // Set appearance of the view
     [self setAppearance];
-        
+    
     // Create food tree view with grid view
     self.foodTreeContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, self.view.bounds.size.height)];
     
@@ -71,22 +81,13 @@
     self.foodTreeGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.foodTreeGridView.autoresizesSubviews = YES;
     self.foodTreeGridView.delegate = self;
-    self.foodTreeGridView.dataSource = self;    
-    [self.foodTreeContainerView addSubview:self.foodTreeGridView];    
+    self.foodTreeGridView.dataSource = self;
+    [self.foodTreeContainerView addSubview:self.foodTreeGridView];
     [self.view addSubview:self.foodTreeContainerView];
-        
-    // Get food tree items for a given parent item
-    [self setupFetchedResultsController:self.selectedItem.name];
-    
-    // Initialize array with results
-    self.foodTreeItems = [self.fetchedResultsController fetchedObjects];
-    
-    // Reload the grid view
-    [self.foodTreeGridView reloadData];
 }
 
 - (void)setAppearance
-{
+{    
     // Set the title of the navigation bar
     self.navigationController.navigationBar.topItem.title = @"Food Finder";
     
@@ -113,12 +114,9 @@
 }
 
 - (void)setupFetchedResultsController:(NSString *)parent
-{
-    // Define the Entity
-    NSString *entityName = @"FoodTreeItem";
-    
-    // Request that Entity
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:entityName];
+{    
+    // Request the FoodTreeItem entity
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FoodTreeItem"];
     
     // Filter the results to return only the results with the given parent
     request.predicate = [NSPredicate predicateWithFormat:@"parent = %@", parent];
@@ -137,10 +135,10 @@
 
 - (NSUInteger)numberOfItemsInGridView:(AQGridView *)aGridView
 {
-    return [self.foodTreeItems count];
+    return [[self.fetchedResultsController fetchedObjects] count];
 }
 
-- (AQGridViewCell *) gridView:(AQGridView *)aGridView cellForItemAtIndex:(NSUInteger)index
+- (AQGridViewCell *)gridView:(AQGridView *)aGridView cellForItemAtIndex:(NSUInteger)index
 {    
     static NSString *PlainCellIdentifier = @"PlainCellIdentifier";
     GridViewCell *cell = (GridViewCell *)[aGridView dequeueReusableCellWithIdentifier:PlainCellIdentifier];       
@@ -149,7 +147,7 @@
         cell = [[GridViewCell alloc] initWithFrame:CGRectMake(0.0, 0.0, 160*1.25, 123*1.25) reuseIdentifier:PlainCellIdentifier scale:1.25];
     }
     
-    Item *item = [self.foodTreeItems objectAtIndex:index];
+    Item *item = [[self.fetchedResultsController fetchedObjects] objectAtIndex:index];
     [cell.imageView setImage:[UIImage imageNamed:item.image]];
     [cell.captionLabel setText:item.name];
        
@@ -158,7 +156,7 @@
 
 -(void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
 {
-    FoodTreeItem *selectedItem = [self.foodTreeItems objectAtIndex:index];
+    FoodTreeItem *selectedItem = [[self.fetchedResultsController fetchedObjects] objectAtIndex:index];
     
     if ([selectedItem.category boolValue] == YES) {
         // Create the view controller and initialize it with the
@@ -176,7 +174,7 @@
     }    
 }
 
-- (CGSize) portraitGridCellSizeForGridView:(AQGridView *)aGridView
+- (CGSize)portraitGridCellSizeForGridView:(AQGridView *)aGridView
 {
     return ( CGSizeMake(160.0*1.25, 123*1.25) );
 }
