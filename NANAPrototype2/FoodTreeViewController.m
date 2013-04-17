@@ -36,18 +36,6 @@
 
 @synthesize selectedItem = _selectedItem;
 
-- (id)init
-{
-    self = [super init];
-    
-    if (self) {
-        // Custom initialization
-        
-        
-    }
-    return self;
-}
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -69,70 +57,81 @@
     return self;
 }
 
-
-- (void)viewWillAppear:(BOOL)animated
-{    
-    
-   
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self setupFetchedResultsController:self.selectedItem.name];
-    
-    self.navigationController.navigationBar.topItem.title = @"Food Finder";
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
-                                                                             style:UIBarButtonItemStyleBordered
-                                                                            target:self
-                                                                            action:@selector(back)
-                                             ];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                                           target:self
-                                                                                           action:@selector(cancel)
-                                              ];
-    
-    UIImage * backgroundPattern = [UIImage imageNamed:@"grey-bg.png"];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:backgroundPattern]];
-    
-    // Create Food Tree view
+    // Set appearance of the view
+    [self setAppearance];
+        
+    // Create food tree view with grid view
     self.foodTreeContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, self.view.bounds.size.height)];
     
     self.foodTreeGridView = [[AQGridView alloc] initWithFrame:CGRectMake(0, 10, 1024, self.view.bounds.size.height)];
     self.foodTreeGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.foodTreeGridView.autoresizesSubviews = YES;
     self.foodTreeGridView.delegate = self;
-    self.foodTreeGridView.dataSource = self;
-    
-    [self.foodTreeContainerView addSubview:self.foodTreeGridView];
-    
+    self.foodTreeGridView.dataSource = self;    
+    [self.foodTreeContainerView addSubview:self.foodTreeGridView];    
     [self.view addSubview:self.foodTreeContainerView];
+        
+    // Get food tree items for a given parent item
+    [self setupFetchedResultsController:self.selectedItem.name];
     
+    // Initialize array with results
     self.foodTreeItems = [self.fetchedResultsController fetchedObjects];
     
+    // Reload the grid view
     [self.foodTreeGridView reloadData];
+}
+
+- (void)setAppearance
+{
+    // Set the title of the navigation bar
+    self.navigationController.navigationBar.topItem.title = @"Food Finder";
+    
+    // Set the action for the back button
+    self.navigationItem.backBarButtonItem =
+        [[UIBarButtonItem alloc]
+            initWithTitle:@"Back"
+                    style:UIBarButtonItemStyleBordered
+                   target:self
+                   action:@selector(back)
+         ];
+    
+    // Set the action for the cancel button
+    self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc]
+            initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                 target:self
+                                 action:@selector(cancel)
+        ];
+    
+    // Set the background image for the view
+    UIImage * backgroundPattern = [UIImage imageNamed:@"grey-bg.png"];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:backgroundPattern]];
 }
 
 - (void)setupFetchedResultsController:(NSString *)parent
 {
-    // 1 - Decide what Entity you want
-    NSString *entityName = @"FoodTreeItem"; // Put your entity name here
+    // Define the Entity
+    NSString *entityName = @"FoodTreeItem";
     
-    // 2 - Request that Entity
+    // Request that Entity
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:entityName];
     
-    // 3 - Filter it if you want
+    // Filter the results to return only the results with the given parent
     request.predicate = [NSPredicate predicateWithFormat:@"parent = %@", parent];
     
-    // 4 - Sort it if you want
+    // Sort the results by position ascending
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"position"                                                                                     ascending:YES]];
     
-    // 5 - Fetch it
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                        managedObjectContext:self.managedObjectContext
-                                                                          sectionNameKeyPath:nil
-                                                                                   cacheName:nil];
+    // Fetch the results
+    self.fetchedResultsController = [[NSFetchedResultsController alloc]
+                                     initWithFetchRequest:request
+                                     managedObjectContext:self.managedObjectContext
+                                       sectionNameKeyPath:nil
+                                                cacheName:nil];
     [self performFetch];
 }
 
@@ -157,56 +156,29 @@
     return cell;
 }
 
-- (CGSize) portraitGridCellSizeForGridView:(AQGridView *)aGridView
-{
-     return ( CGSizeMake(160.0*1.25, 123*1.25) );
-}
-
 -(void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
 {
     FoodTreeItem *selectedItem = [self.foodTreeItems objectAtIndex:index];
-    
-    /*
-    
-    if ([selectedItem.category boolValue] == NO) {
-        if ([selectedItem.options boolValue] == NO) {
-            [Helpers addItemToDiary:selectedItem forMeal:self.selectedMeal withContext:self.managedObjectContext];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-                        
-            self.itemViewController = [[ItemViewController alloc] init];
-            
-            self.itemViewController.delegate = self;
-            
-            self.itemViewController.managedObjectContext = self.managedObjectContext;
-            
-            self.itemViewController.selectedItem = selectedItem;
-            
-            self.itemViewController.selectedMeal = self.selectedMeal;
-            
-            //[self presentModalViewController:self.itemViewController andSize:CGSizeMake(500, 500) andModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-            
-        }        
-    } 
-     
-     */
     
     if ([selectedItem.category boolValue] == YES) {
         // Create the view controller and initialize it with the
         // next level of data.
         FoodTreeViewController *viewController = [[FoodTreeViewController alloc]
-                                                  initWithParent:selectedItem];
-        
+                                                  initWithParent:selectedItem];        
         viewController.selectedMeal = self.selectedMeal;
         viewController.delegate = self.delegate;
         viewController.managedObjectContext = self.managedObjectContext;
-        [[self navigationController] pushViewController:viewController animated:NO];
-        
+        [[self navigationController] pushViewController:viewController animated:NO];        
     } else {
-        [Helpers selectItem:selectedItem forMeal:selectedMeal withController:self andContext:self.managedObjectContext];
-        
+        // Add selected item to diary
+        [Helpers selectItem:selectedItem forMeal:selectedMeal withController:self andContext:self.managedObjectContext];        
         [self dismissModalViewControllerAnimated:YES];
     }    
+}
+
+- (CGSize) portraitGridCellSizeForGridView:(AQGridView *)aGridView
+{
+    return ( CGSizeMake(160.0*1.25, 123*1.25) );
 }
 
 - (void)didReceiveMemoryWarning
@@ -228,7 +200,6 @@
 
 - (void)back
 {
-    NSLog(@"hit back button");
     [self.navigationController popViewControllerAnimated:YES];
 }
 
