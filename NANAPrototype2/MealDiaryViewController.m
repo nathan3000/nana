@@ -510,28 +510,27 @@
 #pragma mark -
 #pragma mark Finish & Take Photo
 
-- (BOOL)takePicture {
+- (BOOL)takePicture
+{
+    // Initialize camera view controller
+    UIImagePickerController *cameraViewController = [[UIImagePickerController alloc] init];
     
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO) {
-        return NO;
-    }
+    // Set the source type to camera
+    cameraViewController.sourceType = UIImagePickerControllerSourceTypeCamera;
     
-    UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
-    cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
-    
-    // Displays a control that allows the user to choose picture or
-    // movie capture, if both are available:
-    cameraUI.mediaTypes =
-    [UIImagePickerController availableMediaTypesForSourceType:
-     UIImagePickerControllerSourceTypeCamera];
+    // Set media type to allow for camera type
+    cameraViewController.mediaTypes =
+        [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
     
     // Hides the controls for moving & scaling pictures, or for
-    // trimming movies. To instead show the controls, use YES.
-    cameraUI.allowsEditing = NO;
+    // trimming movies.
+    cameraViewController.allowsEditing = NO;
     
-    cameraUI.delegate = self;
+    cameraViewController.delegate = self;
     
-    [self presentModalViewController: cameraUI animated: YES];
+    // Present the camer view controller
+    [self presentModalViewController: cameraViewController animated: YES];
+    
     return YES;
 }
 
