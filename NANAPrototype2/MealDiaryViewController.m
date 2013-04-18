@@ -428,41 +428,42 @@
  */
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{  
-    // configure your cell here..
-    
-    // check for no entries..
-    
+{    
+    // Check for zero entries    
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
     if([sectionInfo numberOfObjects] != 0)
     {
-        
+        // Create the diaryEntry managed object
         DiaryEntry *diaryEntry = [self.fetchedResultsController objectAtIndexPath:indexPath];
         
-        if (diaryEntry != nil) {
-            UILabel *nameLabel = (UILabel *)[cell viewWithTag:100];
-            nameLabel.text = diaryEntry.item.name;
-            UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
-            
-            imageView.image = [UIImage imageNamed:diaryEntry.item.image];
-        }
+        // Grab the label via it's tag
+        UILabel *nameLabel = (UILabel *)[cell viewWithTag:100];
         
+        // Set the name label text
+        nameLabel.text = diaryEntry.item.name;
+        
+        // Grab the image view via it's tag
+        UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
+        
+        // Set the image view
+        imageView.image = [UIImage imageNamed:diaryEntry.item.image];
+  
+        // Grab the delete button via it's tag
         UIButton *deleteButton = (UIButton *)[cell viewWithTag:103];
+        
+        // Set all the style attributes for the delete button
         [deleteButton.titleLabel setFont:[UIFont boldSystemFontOfSize:24]];
         [deleteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [deleteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [deleteButton.titleLabel setShadowColor:[UIColor blackColor]];
-        [deleteButton.titleLabel setShadowOffset:CGSizeMake(0.0, -1.0)];
-        
+        [deleteButton.titleLabel setShadowOffset:CGSizeMake(0.0, -1.0)];        
         UIImage *deleteButtonImage = [[UIImage imageNamed:@"orangeButton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
         UIImage *deleteButtonImageHighlight = [[UIImage imageNamed:@"orangeButtonHighlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
         [deleteButton setBackgroundImage:deleteButtonImage forState:UIControlStateNormal];
         [deleteButton setBackgroundImage:deleteButtonImageHighlight forState:UIControlStateHighlighted];
         
+        // Set the action for the delete button
         [deleteButton addTarget:self action:@selector(deleteItem:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [cell.contentView addSubview:deleteButton];
-        
     }
 }
 
