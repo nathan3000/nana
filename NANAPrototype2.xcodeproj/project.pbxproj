@@ -34,6 +34,13 @@
 		D836BBD216B0459D00BBACDC /* greenButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D836BBCE16B0459D00BBACDC /* greenButtonHighlight.png */; };
 		D836BBD316B0459D00BBACDC /* greenButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D836BBCF16B0459D00BBACDC /* greenButtonHighlight@2x.png */; };
 		D836BBD416B0459D00BBACDC /* greenButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D836BBD016B0459D00BBACDC /* greenButton@2x.png */; };
+		D8458BAB17205FD00041983C /* FoodTreeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D8458BAA17205FD00041983C /* FoodTreeItem.m */; };
+		D8458BB2172091AA0041983C /* milk-skimmed.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8458BAF172091AA0041983C /* milk-skimmed.jpg */; };
+		D8458BB3172091AA0041983C /* milk-full.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8458BB0172091AA0041983C /* milk-full.jpg */; };
+		D8458BB4172091AA0041983C /* milk-semi-skimmed.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8458BB1172091AA0041983C /* milk-semi-skimmed.jpg */; };
+		D8458BB6172097670041983C /* sugar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8458BB5172097670041983C /* sugar.jpg */; };
+		D8458BB817209B660041983C /* none.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8458BB717209B660041983C /* none.jpg */; };
+		D8458BBC1720A2AF0041983C /* none2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8458BBB1720A2AF0041983C /* none2.jpg */; };
 		D862EC2B167B8E66004179F4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D862EC2A167B8E66004179F4 /* QuartzCore.framework */; };
 		D862EC56167B97C3004179F4 /* GridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D862EC55167B97C3004179F4 /* GridViewCell.m */; };
 		D862ECF5167BA73A004179F4 /* AQGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D862ECDF167BA73A004179F4 /* AQGridView.m */; };
@@ -134,22 +141,22 @@
 		D8E5AA8C17161E41005898CD /* porridge.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8E5AA8B17161E41005898CD /* porridge.jpg */; };
 		D8E5AA8E17161F20005898CD /* special-k.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8E5AA8D17161F20005898CD /* special-k.jpg */; };
 		D8E5AA9017162A9F005898CD /* FoodTreeData.json in Resources */ = {isa = PBXBuildFile; fileRef = D8E5AA8F17162A9F005898CD /* FoodTreeData.json */; };
-		D8E5AA9217162C16005898CD /* FoodTreeData.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8E5AA8F17162A9F005898CD /* FoodTreeData.json */; };
-		D8E5AA95171634BF005898CD /* FoodTreeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D8E5AA94171634BF005898CD /* FoodTreeItem.m */; };
+		D8E5AA9217162C16005898CD /* FoodTreeData.json in Copy Files */ = {isa = PBXBuildFile; fileRef = D8E5AA8F17162A9F005898CD /* FoodTreeData.json */; };
 		D8FA8DC4171475A600EDDE27 /* wholemeal-bread-sliced.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8FA8DC2171475A600EDDE27 /* wholemeal-bread-sliced.jpg */; };
 		D8FA8DC81714789600EDDE27 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FA8DC71714789600EDDE27 /* Item.m */; };
 		D8FA8DCC1714872100EDDE27 /* white-bread-sliced.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8FA8DCB1714872100EDDE27 /* white-bread-sliced.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D8E5AA9117162C05005898CD /* CopyFiles */ = {
+		D8E5AA9117162C05005898CD /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				D8E5AA9217162C16005898CD /* FoodTreeData.json in CopyFiles */,
+				D8E5AA9217162C16005898CD /* FoodTreeData.json in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -187,6 +194,14 @@
 		D836BBCE16B0459D00BBACDC /* greenButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButtonHighlight.png; sourceTree = "<group>"; };
 		D836BBCF16B0459D00BBACDC /* greenButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenButtonHighlight@2x.png"; sourceTree = "<group>"; };
 		D836BBD016B0459D00BBACDC /* greenButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenButton@2x.png"; sourceTree = "<group>"; };
+		D8458BA917205FD00041983C /* FoodTreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodTreeItem.h; sourceTree = "<group>"; };
+		D8458BAA17205FD00041983C /* FoodTreeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodTreeItem.m; sourceTree = "<group>"; };
+		D8458BAF172091AA0041983C /* milk-skimmed.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "milk-skimmed.jpg"; sourceTree = "<group>"; };
+		D8458BB0172091AA0041983C /* milk-full.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "milk-full.jpg"; sourceTree = "<group>"; };
+		D8458BB1172091AA0041983C /* milk-semi-skimmed.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "milk-semi-skimmed.jpg"; sourceTree = "<group>"; };
+		D8458BB5172097670041983C /* sugar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sugar.jpg; sourceTree = "<group>"; };
+		D8458BB717209B660041983C /* none.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = none.jpg; sourceTree = "<group>"; };
+		D8458BBB1720A2AF0041983C /* none2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = none2.jpg; sourceTree = "<group>"; };
 		D862EC2A167B8E66004179F4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D862EC54167B97C3004179F4 /* GridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewCell.h; sourceTree = "<group>"; };
 		D862EC55167B97C3004179F4 /* GridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewCell.m; sourceTree = "<group>"; };
@@ -311,8 +326,6 @@
 		D8E5AA8B17161E41005898CD /* porridge.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = porridge.jpg; sourceTree = "<group>"; };
 		D8E5AA8D17161F20005898CD /* special-k.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "special-k.jpg"; sourceTree = "<group>"; };
 		D8E5AA8F17162A9F005898CD /* FoodTreeData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FoodTreeData.json; sourceTree = "<group>"; };
-		D8E5AA93171634BF005898CD /* FoodTreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodTreeItem.h; sourceTree = "<group>"; };
-		D8E5AA94171634BF005898CD /* FoodTreeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodTreeItem.m; sourceTree = "<group>"; };
 		D8FA8DC2171475A600EDDE27 /* wholemeal-bread-sliced.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wholemeal-bread-sliced.jpg"; sourceTree = "<group>"; };
 		D8FA8DC61714789600EDDE27 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		D8FA8DC71714789600EDDE27 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
@@ -364,6 +377,12 @@
 		D849ECE3169EDE0200A1ACF6 /* Tree Items */ = {
 			isa = PBXGroup;
 			children = (
+				D8458BBB1720A2AF0041983C /* none2.jpg */,
+				D8458BB717209B660041983C /* none.jpg */,
+				D8458BB5172097670041983C /* sugar.jpg */,
+				D8458BAF172091AA0041983C /* milk-skimmed.jpg */,
+				D8458BB0172091AA0041983C /* milk-full.jpg */,
+				D8458BB1172091AA0041983C /* milk-semi-skimmed.jpg */,
 				D80457B0167BEE87002204D2 /* drinks.jpg */,
 				D8E5AA8B17161E41005898CD /* porridge.jpg */,
 				D8FA8DCB1714872100EDDE27 /* white-bread-sliced.jpg */,
@@ -484,9 +503,9 @@
 				D80C577816EB85A6002E5F91 /* Meal.m */,
 				D80C577116EB85A6002E5F91 /* DiaryEntry.h */,
 				D80C577216EB85A6002E5F91 /* DiaryEntry.m */,
+				D8458BA917205FD00041983C /* FoodTreeItem.h */,
+				D8458BAA17205FD00041983C /* FoodTreeItem.m */,
 				D875F5AF16828A38001CBFA3 /* Model.xcdatamodeld */,
-				D8E5AA93171634BF005898CD /* FoodTreeItem.h */,
-				D8E5AA94171634BF005898CD /* FoodTreeItem.m */,
 				D8FA8DC61714789600EDDE27 /* Item.h */,
 				D8FA8DC71714789600EDDE27 /* Item.m */,
 				D8E5AA8F17162A9F005898CD /* FoodTreeData.json */,
@@ -661,7 +680,7 @@
 				D8D5955B1677AA3200BF9632 /* Sources */,
 				D8D5955C1677AA3200BF9632 /* Frameworks */,
 				D8D5955D1677AA3200BF9632 /* Resources */,
-				D8E5AA9117162C05005898CD /* CopyFiles */,
+				D8E5AA9117162C05005898CD /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -790,6 +809,12 @@
 				D8E5AA8C17161E41005898CD /* porridge.jpg in Resources */,
 				D8E5AA8E17161F20005898CD /* special-k.jpg in Resources */,
 				D8E5AA9017162A9F005898CD /* FoodTreeData.json in Resources */,
+				D8458BB2172091AA0041983C /* milk-skimmed.jpg in Resources */,
+				D8458BB3172091AA0041983C /* milk-full.jpg in Resources */,
+				D8458BB4172091AA0041983C /* milk-semi-skimmed.jpg in Resources */,
+				D8458BB6172097670041983C /* sugar.jpg in Resources */,
+				D8458BB817209B660041983C /* none.jpg in Resources */,
+				D8458BBC1720A2AF0041983C /* none2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -826,7 +851,7 @@
 				D80C577916EB85A6002E5F91 /* Meal.m in Sources */,
 				D80C577B16EB85A6002E5F91 /* DiaryItem.m in Sources */,
 				D8FA8DC81714789600EDDE27 /* Item.m in Sources */,
-				D8E5AA95171634BF005898CD /* FoodTreeItem.m in Sources */,
+				D8458BAB17205FD00041983C /* FoodTreeItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

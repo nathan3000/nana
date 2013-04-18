@@ -2,7 +2,7 @@
 //  FoodTreeItem.h
 //  NANAPrototype2
 //
-//  Created by Nathan Fisher on 11/04/2013.
+//  Created by Nathan Fisher on 18/04/2013.
 //  Copyright (c) 2013 Nathan Fisher. All rights reserved.
 //
 
@@ -14,8 +14,8 @@
 @interface FoodTreeItem : Item
 
 @property (nonatomic, retain) NSNumber * category;
-@property (nonatomic, retain) NSNumber * options;
-@property (nonatomic, retain) NSNumber * position;
+@property (nonatomic, retain) id builder;
 @property (nonatomic, retain) NSString * parent;
+@property (nonatomic, retain) NSNumber * position;
 
 @end

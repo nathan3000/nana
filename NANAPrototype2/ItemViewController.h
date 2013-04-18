@@ -14,9 +14,13 @@
 
 #import "DiaryEntry.h"
 
-#import "Item.h"
+#import "FoodTreeItem.h"
 
 #import "Helpers.h"
+
+#import "AQGridView.h"
+
+#import "GridViewCell.h"
 
 @protocol ItemViewControllerDelegate <NSObject>
 
@@ -24,16 +28,24 @@
 
 @end
 
-@interface ItemViewController : UIViewController
+@interface ItemViewController : UIViewController <AQGridViewDelegate, AQGridViewDataSource>
 
 @property (weak) id delegate;
 
 @property (strong, nonatomic) NSString *selectedMeal;
 
-@property (strong, nonatomic) Item *selectedItem;
+@property (strong, nonatomic) FoodTreeItem *selectedItem;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (strong, nonatomic) UILabel *stepperValueLabel;
+
+@property (strong, nonatomic) AQGridView *gridView;
+
+@property (strong, nonatomic) NSMutableDictionary *options;
+
+@property (strong, nonatomic) NSArray *preselects;
+
+@property (strong, nonatomic) NSMutableDictionary *selectedOptions;
 
 @end

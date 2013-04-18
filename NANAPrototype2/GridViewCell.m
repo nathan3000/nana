@@ -10,7 +10,7 @@
 
 @implementation GridViewCell
 
-@synthesize captionLabel, imageView;
+@synthesize captionLabel, imageView, frameImageView;
 
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)aReuseIdentifier
 {
@@ -34,8 +34,8 @@
         self.contentView.backgroundColor = [UIColor clearColor];
         [mainView setBackgroundColor:[UIColor clearColor]];
         
-        UIImageView *frameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(9, 4, 142*scale, 117*scale)];
-        [frameImageView setImage:[UIImage imageNamed:@"tab-mask.png"]];
+        self.frameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(9, 4, 142*scale, 117*scale)];
+        [self.frameImageView setImage:[UIImage imageNamed:@"tab-mask.png"]];
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 8, 135*scale, 84*scale)];
         self.captionLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, 92*scale, 136*scale, 21)];
         
@@ -48,6 +48,11 @@
     }
     
     return self;
+}
+
+- (void)selectCell
+{
+    [self.frameImageView setImage:[UIImage imageNamed:@"highlighted-tab-mask"]];
 }
 
 /*

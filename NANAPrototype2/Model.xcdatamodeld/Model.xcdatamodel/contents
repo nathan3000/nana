@@ -11,8 +11,8 @@
         <relationship name="diaryEntry" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DiaryEntry" inverseName="item" inverseEntity="DiaryEntry" syncable="YES"/>
     </entity>
     <entity name="FoodTreeItem" representedClassName="FoodTreeItem" parentEntity="Item" syncable="YES">
+        <attribute name="builder" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="options" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="parent" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>

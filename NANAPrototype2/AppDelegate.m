@@ -35,13 +35,12 @@
         [self.managedObjectContext deleteObject:object];
     }
     
-    NSError* err = nil;
-    NSString* dataPath = [[NSBundle mainBundle] pathForResource:@"FoodTreeData" ofType:@"json"];
-    NSArray* FoodTreeItems = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:dataPath]
+    NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"FoodTreeData" ofType:@"json"];
+    NSArray *foodTreeItems = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:dataPath]
                                                             options:kNilOptions
-                                                              error:&err];
+                                                              error:nil];
     
-    [FoodTreeItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [foodTreeItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         FoodTreeItem *item = [NSEntityDescription
                                           insertNewObjectForEntityForName:@"FoodTreeItem"
                                           inManagedObjectContext:self.managedObjectContext];
@@ -52,7 +51,7 @@
         item.category = [self getValueFromJSONObject:[obj objectForKey:@"category"] withType:@"bool"];
         item.position = [self getValueFromJSONObject:[obj objectForKey:@"position"] withType:@"number"];
         item.parent = [self getValueFromJSONObject:[obj objectForKey:@"parent"] withType:@"string"];
-        item.options = [self getValueFromJSONObject:[obj objectForKey:@"options"] withType:@"bool"];
+        item.builder = [self getValueFromJSONObject:[obj objectForKey:@"builder"] withType:@"dictionary"];
        
         NSError *error;
         if (![self.managedObjectContext save:&error]) {
@@ -198,6 +197,8 @@
                 return [NSNumber numberWithBool:NO];
             }
         } else if ([type isEqualToString:@"number"]) {
+            return JSONObject;
+        } else if ([type isEqualToString:@"dictionary"]) {
             return JSONObject;
         }
     }

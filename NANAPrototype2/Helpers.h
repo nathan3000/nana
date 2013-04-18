@@ -24,9 +24,9 @@
 
 @interface Helpers : NSObject
 
-+ (void)addItemToDiary:(Item *)selectedItem forMeal:(NSString *)selectedMeal withContext:(NSManagedObjectContext *)managedObjectContext;
++ (void)addItemToDiary:(Item *)selectedItem withOptions:(NSMutableArray *)options forMeal:(NSString *)selectedMeal withContext:(NSManagedObjectContext *)managedObjectContext;
 
 + (void)removeSubviewFrom:(UIView *)parent withTag:(NSInteger)aTag;
 
-+ (void)selectItem:(FoodTreeItem *)item forMeal:(NSString *)meal withController:(UIViewController *)controller andContext:(NSManagedObjectContext *)managedObjectContext;
++ (void)selectItem:(FoodTreeItem *)item withPreselects:(NSArray *)preselects forMeal:(NSString *)meal withController:(UIViewController *)controller andContext:(NSManagedObjectContext *)managedObjectContext;
 @end

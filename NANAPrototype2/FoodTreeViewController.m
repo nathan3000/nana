@@ -167,7 +167,7 @@
         [[self navigationController] pushViewController:viewController animated:NO];        
     } else {
         // Add selected item to diary
-        [Helpers selectItem:selectedItem forMeal:selectedMeal withController:self andContext:self.managedObjectContext];        
+        [Helpers selectItem:selectedItem withPreselects:nil forMeal:selectedMeal withController:self andContext:self.managedObjectContext];
         [self dismissModalViewControllerAnimated:YES];
     }    
 }

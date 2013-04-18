@@ -464,7 +464,9 @@
 {
     DiaryEntry *entry = [favouriteItems objectAtIndex:index];
     
-    [Helpers selectItem:(FoodTreeItem *)entry.item forMeal:self.selectedMeal withController:self andContext:self.managedObjectContext];
+    FoodTreeItem *item = [[self fetch:@"FoodTreeItem" withPredicate:[NSPredicate predicateWithFormat:@"name like %@", entry.item.name]] objectAtIndex:0];
+    
+    [Helpers selectItem:item withPreselects:entry.item.options forMeal:self.selectedMeal withController:self andContext:self.managedObjectContext];
     
     [self refreshDiary];
     [gridView deselectItemAtIndex:index animated:YES];

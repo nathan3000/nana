@@ -10,7 +10,7 @@
 
 @implementation Helpers
 
-+ (void)addItemToDiary:(DiaryItem *)selectedItem forMeal:(NSString *)selectedMeal withContext:(NSManagedObjectContext *)managedObjectContext
++ (void)addItemToDiary:(DiaryItem *)selectedItem withOptions:(NSMutableArray *)options forMeal:(NSString *)selectedMeal withContext:(NSManagedObjectContext *)managedObjectContext
 {    
     Meal *meal = [NSEntityDescription insertNewObjectForEntityForName:@"Meal" inManagedObjectContext:managedObjectContext];
     meal.type = selectedMeal;
@@ -19,7 +19,7 @@
     DiaryItem *item = [NSEntityDescription insertNewObjectForEntityForName:@"DiaryItem" inManagedObjectContext:managedObjectContext];
     item.name = selectedItem.name;
     item.image = selectedItem.image;
-    item.options = selectedItem.options;
+    item.options = options;
     
     DiaryEntry *diary = [NSEntityDescription insertNewObjectForEntityForName:@"DiaryEntry" inManagedObjectContext:managedObjectContext];
     diary.time = [NSDate date];
@@ -65,9 +65,9 @@
     }
 }
 
-+ (void)selectItem:(FoodTreeItem *)item forMeal:(NSString *)meal withController:(UIViewController *)controller andContext:(NSManagedObjectContext *)managedObjectContext {
-    if ([item.options boolValue] == NO) {
-        [self addItemToDiary:item forMeal:meal withContext:managedObjectContext];
++ (void)selectItem:(FoodTreeItem *)item withPreselects:(NSArray *)preselects forMeal:(NSString *)meal withController:(UIViewController *)controller andContext:(NSManagedObjectContext *)managedObjectContext {
+    if (![item respondsToSelector:@selector(builder)]) {
+        [self addItemToDiary:item withOptions:nil forMeal:meal withContext:managedObjectContext];
     } else {
         
         ItemViewController *itemViewController = [[ItemViewController alloc] init];
@@ -80,7 +80,9 @@
         
         itemViewController.selectedMeal = meal;
         
-        [self presentModalViewController:itemViewController andSize:CGSizeMake(500, 500) andModalTransitionStyle:UIModalTransitionStyleCoverVertical from:controller];
+        itemViewController.preselects = preselects;
+        
+        [self presentModalViewController:itemViewController andSize:CGSizeMake(800, 700) andModalTransitionStyle:UIModalTransitionStyleCoverVertical from:controller];
     }
 }
 
