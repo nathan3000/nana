@@ -404,29 +404,6 @@
     return YES;
 }
 
-/*
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        [self.diaryTableView beginUpdates]; // Avoid  NSInternalInconsistencyException
-        
-        // Delete the role object that was swiped
-        DiaryEntry *itemToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
-       // NSLog(@"Deleting (%@)", itemToDelete.name);
-        [self.managedObjectContext deleteObject:itemToDelete];
-        [self.managedObjectContext save:nil];
-        
-        // Delete the (now empty) row on the table
-        [self.diaryTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self performFetch];        
-        [self.diaryTableView endUpdates];
-        
-    }
-}
- 
- */
-
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {    
     // Check for zero entries    
