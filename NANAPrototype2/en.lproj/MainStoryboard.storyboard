@@ -431,45 +431,6 @@
         <image name="orange2Button@2x.png" width="72" height="72"/>
         <image name="purpleButton@2x.png" width="72" height="72"/>
     </resources>
-    <classes>
-        <class className="CoreDataTableViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
-        </class>
-        <class className="MealDiaryViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MealDiaryViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="changeMealButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="diaryTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="diaryTopBorder" candidateClass="UIView"/>
-                <relationship kind="outlet" name="diaryView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="favouritesView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="finishedButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="mealTitle" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="MealSelectionViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MealSelectionViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="breakfastButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="buttonBlock" candidateClass="UIView"/>
-                <relationship kind="outlet" name="dinnerButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="lunchButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="snacksButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="SettingsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="userIdLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

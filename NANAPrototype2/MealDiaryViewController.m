@@ -468,19 +468,27 @@
 
 - (void)deleteItem:(id)sender
 {
+    // Find which cell the delete action originated from
     UITableViewCell *clickedCell = (UITableViewCell *)[[sender superview] superview];
+    
+    // Get the indexPath of the clicked cell
     NSIndexPath *indexPath = [self.diaryTableView indexPathForCell:clickedCell];
     
+    // Create the managed object to be deleted
     DiaryEntry *itemToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
+    // Delete the managed object from the managed object context
     [self.managedObjectContext deleteObject:itemToDelete];
+    
+    // Save the managed object context
     [self.managedObjectContext save:nil];
     
-    [self performFetch];
+    // Refresh the fetchedResultsController
+    [self performFetch];    
     
-    // Delete the (now empty) row on the table
     [self.diaryTableView beginUpdates];
     
+    // Delete the (now empty) row on the table
     [self.diaryTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     
     [self.diaryTableView endUpdates];
