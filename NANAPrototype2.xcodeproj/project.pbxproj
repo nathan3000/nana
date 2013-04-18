@@ -11,12 +11,10 @@
 		D80457A8167BE304002204D2 /* bg-app.png in Resources */ = {isa = PBXBuildFile; fileRef = D80457A6167BE304002204D2 /* bg-app.png */; };
 		D80457A9167BE304002204D2 /* bg-app@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D80457A7167BE304002204D2 /* bg-app@2x.png */; };
 		D80457AB167BE357002204D2 /* grey-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D80457AA167BE357002204D2 /* grey-bg.png */; };
-		D80457AE167BEC57002204D2 /* TreeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D80457AD167BEC57002204D2 /* TreeItem.m */; };
 		D80457B1167BEE87002204D2 /* bread.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D80457AF167BEE87002204D2 /* bread.jpg */; };
 		D80457B2167BEE87002204D2 /* drinks.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D80457B0167BEE87002204D2 /* drinks.jpg */; };
 		D80457B5167BF108002204D2 /* tab-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = D80457B3167BF108002204D2 /* tab-mask.png */; };
 		D80457B6167BF108002204D2 /* tab-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D80457B4167BF108002204D2 /* tab-mask@2x.png */; };
-		D80457BD167CAA57002204D2 /* Tree.m in Sources */ = {isa = PBXBuildFile; fileRef = D80457BC167CAA57002204D2 /* Tree.m */; };
 		D80457C7167CD8C1002204D2 /* nana_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D80457C6167CD8C1002204D2 /* nana_logo.png */; };
 		D80C577316EB85A6002E5F91 /* DiaryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C577216EB85A6002E5F91 /* DiaryEntry.m */; };
 		D80C577916EB85A6002E5F91 /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C577816EB85A6002E5F91 /* Meal.m */; };
@@ -95,7 +93,6 @@
 		D886147016D410E8000113E4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D886146F16D410E8000113E4 /* SystemConfiguration.framework */; };
 		D886147416D416E6000113E4 /* glyphicons_157_show_lines.png in Resources */ = {isa = PBXBuildFile; fileRef = D886147316D416E6000113E4 /* glyphicons_157_show_lines.png */; };
 		D886147716D41857000113E4 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D886147616D41857000113E4 /* SettingsViewController.m */; };
-		D88E2B51167A2A6D006CD0BF /* MultiValueDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = D88E2B50167A2A6D006CD0BF /* MultiValueDictionary.m */; };
 		D88E2B57167A36D2006CD0BF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D88E2B55167A36D2006CD0BF /* MainStoryboard.storyboard */; };
 		D897F04916820FE30052F3D6 /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D897F04816820FE30052F3D6 /* ItemViewController.m */; };
 		D897F04C1682232C0052F3D6 /* orange-juice.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D897F04B1682232C0052F3D6 /* orange-juice.jpg */; };
@@ -168,14 +165,10 @@
 		D80457A6167BE304002204D2 /* bg-app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-app.png"; sourceTree = "<group>"; };
 		D80457A7167BE304002204D2 /* bg-app@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-app@2x.png"; sourceTree = "<group>"; };
 		D80457AA167BE357002204D2 /* grey-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grey-bg.png"; sourceTree = "<group>"; };
-		D80457AC167BEC57002204D2 /* TreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeItem.h; sourceTree = "<group>"; };
-		D80457AD167BEC57002204D2 /* TreeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TreeItem.m; sourceTree = "<group>"; };
 		D80457AF167BEE87002204D2 /* bread.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bread.jpg; sourceTree = "<group>"; };
 		D80457B0167BEE87002204D2 /* drinks.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = drinks.jpg; sourceTree = "<group>"; };
 		D80457B3167BF108002204D2 /* tab-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-mask.png"; sourceTree = "<group>"; };
 		D80457B4167BF108002204D2 /* tab-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-mask@2x.png"; sourceTree = "<group>"; };
-		D80457BB167CAA57002204D2 /* Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tree.h; sourceTree = "<group>"; };
-		D80457BC167CAA57002204D2 /* Tree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tree.m; sourceTree = "<group>"; };
 		D80457C6167CD8C1002204D2 /* nana_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nana_logo.png; sourceTree = "<group>"; };
 		D80C577116EB85A6002E5F91 /* DiaryEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryEntry.h; sourceTree = "<group>"; };
 		D80C577216EB85A6002E5F91 /* DiaryEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryEntry.m; sourceTree = "<group>"; };
@@ -275,8 +268,6 @@
 		D886147316D416E6000113E4 /* glyphicons_157_show_lines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_157_show_lines.png; sourceTree = "<group>"; };
 		D886147516D41857000113E4 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		D886147616D41857000113E4 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		D88E2B4F167A2A6D006CD0BF /* MultiValueDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiValueDictionary.h; sourceTree = "<group>"; };
-		D88E2B50167A2A6D006CD0BF /* MultiValueDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiValueDictionary.m; sourceTree = "<group>"; };
 		D88E2B56167A36D2006CD0BF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = NANAPrototype2/en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		D897F04716820FE30052F3D6 /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
 		D897F04816820FE30052F3D6 /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
@@ -519,12 +510,6 @@
 				D8E5AA94171634BF005898CD /* FoodTreeItem.m */,
 				D8FA8DC61714789600EDDE27 /* Item.h */,
 				D8FA8DC71714789600EDDE27 /* Item.m */,
-				D88E2B4F167A2A6D006CD0BF /* MultiValueDictionary.h */,
-				D88E2B50167A2A6D006CD0BF /* MultiValueDictionary.m */,
-				D80457AC167BEC57002204D2 /* TreeItem.h */,
-				D80457AD167BEC57002204D2 /* TreeItem.m */,
-				D80457BB167CAA57002204D2 /* Tree.h */,
-				D80457BC167CAA57002204D2 /* Tree.m */,
 				D8E5AA8F17162A9F005898CD /* FoodTreeData.json */,
 			);
 			name = Model;
@@ -841,7 +826,6 @@
 				D8D595741677AA3200BF9632 /* AppDelegate.m in Sources */,
 				D8D595801677AA3200BF9632 /* MealDiaryViewController.m in Sources */,
 				D8D595881677B2E100BF9632 /* FoodTreeViewController.m in Sources */,
-				D88E2B51167A2A6D006CD0BF /* MultiValueDictionary.m in Sources */,
 				D862EC56167B97C3004179F4 /* GridViewCell.m in Sources */,
 				D862ECF5167BA73A004179F4 /* AQGridView.m in Sources */,
 				D862ECF6167BA73A004179F4 /* AQGridViewAnimatorItem.m in Sources */,
@@ -853,8 +837,6 @@
 				D862ECFC167BA73A004179F4 /* NSIndexSet+AQIndexesOutsideSet.m in Sources */,
 				D862ECFD167BA73A004179F4 /* NSIndexSet+AQIsSetContiguous.m in Sources */,
 				D862ECFE167BA73A004179F4 /* UIColor+AQGridView.m in Sources */,
-				D80457AE167BEC57002204D2 /* TreeItem.m in Sources */,
-				D80457BD167CAA57002204D2 /* Tree.m in Sources */,
 				D897F04916820FE30052F3D6 /* ItemViewController.m in Sources */,
 				D875F5AC16828938001CBFA3 /* CoreDataTableViewController.m in Sources */,
 				D875F5B116828A38001CBFA3 /* Model.xcdatamodeld in Sources */,
