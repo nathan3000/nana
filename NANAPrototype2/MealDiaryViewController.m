@@ -442,7 +442,7 @@
     return[favouriteItems count];
 }
 
-- (AQGridViewCell *) gridView:(AQGridView *)aGridView cellForItemAtIndex:(NSUInteger)index
+- (AQGridViewCell *)gridView:(AQGridView *)aGridView cellForItemAtIndex:(NSUInteger)index
 {
     static NSString *PlainCellIdentifier = @"PlainCellIdentifier";
     GridViewCell *cell = (GridViewCell *)[aGridView dequeueReusableCellWithIdentifier:PlainCellIdentifier];
@@ -470,7 +470,7 @@
     [gridView deselectItemAtIndex:index animated:YES];
 }
 
-- (CGSize) portraitGridCellSizeForGridView:(AQGridView *)aGridView
+- (CGSize)portraitGridCellSizeForGridView:(AQGridView *)aGridView
 {
     return ( CGSizeMake(160.0, 123) );
 }
