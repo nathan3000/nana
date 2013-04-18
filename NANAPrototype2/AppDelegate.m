@@ -8,8 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import <Parse/Parse.h>
-
 #import "MealDiaryViewController.h"
 
 #import "DiaryItem.h"
@@ -23,11 +21,7 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    // Override point for customization after application launch.
-    [Parse setApplicationId:@"KeNyWuYjqSNAeqMulMdHxSX9JcVz3K59kn9ULf7U"
-                  clientKey:@"EMFSRTOSQUzpmQEZ248WutUB2nFQxavf69Wi78rL"];    
-    
+{    
     MealDiaryViewController *controller = (MealDiaryViewController *)self.window.rootViewController;
     controller.managedObjectContext = self.managedObjectContext;
     

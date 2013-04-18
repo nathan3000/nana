@@ -10,8 +10,6 @@
 
 #import <CoreData/CoreData.h>
 
-#import <Parse/Parse.h>
-
 #import "DiaryEntry.h"
 
 @interface SettingsViewController : UITableViewController
