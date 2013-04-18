@@ -42,6 +42,9 @@
 
 @synthesize delegate = _delegate;
 
+#pragma mark -
+#pragma mark View Controller
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -175,6 +178,41 @@
     [self refreshDiary];    
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [self refreshDiary];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return ((interfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (interfaceOrientation == UIInterfaceOrientationLandscapeRight));
+}
+
+- (void)viewDidUnload {
+    [self setMealTitle:nil];
+    [self setDiaryTopBorder:nil];
+    [self setDeleteButton:nil];
+    [super viewDidUnload];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"Settings"]) {
+        SettingsViewController *viewController = [segue destinationViewController];
+        viewController.managedObjectContext = self.managedObjectContext;
+    }
+    
+}
+
+#pragma mark -
+#pragma mark Navigation Bar Actions
+
 - (void)back
 {
     // Delete all items in current meal.    
@@ -189,8 +227,113 @@
     [self.delegate back];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self refreshDiary];
+
+- (void)finished:(UIButton *)button
+{
+    [self takePicture];
+}
+
+#pragma mark -
+#pragma mark Diary View
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    return [sectionInfo numberOfObjects];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    /* if (cell == nil) {
+     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+     }*/
+    
+    [self configureCell:cell atIndexPath:indexPath];
+    
+    return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    // Check for zero entries
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
+    if([sectionInfo numberOfObjects] != 0)
+    {
+        // Create the diaryEntry managed object
+        DiaryEntry *diaryEntry = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
+        // Grab the label via it's tag
+        UILabel *nameLabel = (UILabel *)[cell viewWithTag:100];
+        
+        // Set the name label text
+        nameLabel.text = diaryEntry.item.name;
+        
+        // Grab the image view via it's tag
+        UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
+        
+        // Set the image view
+        imageView.image = [UIImage imageNamed:diaryEntry.item.image];
+        
+        // Grab the delete button via it's tag
+        UIButton *deleteButton = (UIButton *)[cell viewWithTag:103];
+        
+        // Set all the style attributes for the delete button
+        [deleteButton.titleLabel setFont:[UIFont boldSystemFontOfSize:24]];
+        [deleteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [deleteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [deleteButton.titleLabel setShadowColor:[UIColor blackColor]];
+        [deleteButton.titleLabel setShadowOffset:CGSizeMake(0.0, -1.0)];
+        UIImage *deleteButtonImage = [[UIImage imageNamed:@"orangeButton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
+        UIImage *deleteButtonImageHighlight = [[UIImage imageNamed:@"orangeButtonHighlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
+        [deleteButton setBackgroundImage:deleteButtonImage forState:UIControlStateNormal];
+        [deleteButton setBackgroundImage:deleteButtonImageHighlight forState:UIControlStateHighlighted];
+        
+        // Set the action for the delete button
+        [deleteButton addTarget:self action:@selector(deleteItem:) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+- (void)deleteItem:(id)sender
+{
+    // Find which cell the delete action originated from
+    UITableViewCell *clickedCell = (UITableViewCell *)[[sender superview] superview];
+    
+    // Get the indexPath of the clicked cell
+    NSIndexPath *indexPath = [self.diaryTableView indexPathForCell:clickedCell];
+    
+    // Create the managed object to be deleted
+    DiaryEntry *itemToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    // Delete the managed object from the managed object context
+    [self.managedObjectContext deleteObject:itemToDelete];
+    
+    // Save the managed object context
+    [self.managedObjectContext save:nil];
+    
+    // Refresh the fetchedResultsController
+    [self performFetch];
+    
+    [self.diaryTableView beginUpdates];
+    
+    // Delete the (now empty) row on the table
+    [self.diaryTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    [self.diaryTableView endUpdates];
 }
 
 - (void)refreshDiary
@@ -233,35 +376,65 @@
     [self scrollToBottomOfTableView:self.diaryTableView];
 }
 
-- (UIViewController *)presentModalViewControllerWithIdentifier:(NSString *)identifier
-                                                        andSize:(CGSize)size
-                                        andModalTransitionStyle:(UIModalTransitionStyle)modalTransitionStyle {
-    ModalViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
-    
-    viewController.delegate = self;
-    
-    viewController.modalPresentationStyle = UIModalPresentationPageSheet;
-    viewController.modalTransitionStyle = modalTransitionStyle;
-    [self presentViewController:viewController animated:YES completion:nil];
-    viewController.view.superview.autoresizingMask =
-    UIViewAutoresizingFlexibleTopMargin |
-    UIViewAutoresizingFlexibleBottomMargin |
-    UIViewAutoresizingFlexibleLeftMargin |
-    UIViewAutoresizingFlexibleRightMargin;
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    viewController.view.superview.frame = CGRectMake(0, 0, size.width, size.height);
-    CGPoint center = CGPointMake(CGRectGetMidX(screenBounds), CGRectGetMidY(screenBounds));
-    viewController.view.superview.center = UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? center : CGPointMake(center.y, center.x);
-    
-    return viewController;
-}
-
 - (void)scrollToBottomOfTableView:(UITableView *)aTableView;
 {
     if (aTableView.contentSize.height > aTableView.bounds.size.height) {
         CGFloat offset = aTableView.contentSize.height - aTableView.bounds.size.height;
         [aTableView setContentOffset:CGPointMake(0, offset) animated:YES];
-    }    
+    }
+}
+
+- (void)setupFetchedResultsController:(NSString *)mealType
+{
+    // 1 - Decide what Entity you want
+    NSString *entityName = @"DiaryEntry"; // Put your entity name here
+    
+    // 2 - Request that Entity
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:entityName];
+    
+    // 3 - Filter it if you want
+    request.predicate = [NSPredicate predicateWithFormat:@"meal.type like %@ AND meal.startTime == %@", mealType,[[NSUserDefaults standardUserDefaults] objectForKey:@"mealStartTime"]];
+    
+    // 4 - Sort it if you want
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"time"
+                                                                                     ascending:YES]];
+    // 5 - Fetch it
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+    [self performFetch];
+}
+
+#pragma mark -
+#pragma mark Favourites View
+
+- (void)computeFavourites:(NSString *)selectedMeal
+{
+    self.favouriteItems = [[NSMutableArray alloc] init];
+    
+    NSArray *fetchedObjects = [self fetch:@"DiaryEntry" withPredicate:[NSPredicate predicateWithFormat:@"meal.type like %@", selectedMeal]];
+    
+    NSMutableArray *namesOfFavourites = [[NSMutableArray alloc] init];
+    
+    // If an object with the same name is not already in the favourites list, then add to favourites list
+    for (NSObject *fetchedObject in fetchedObjects) {
+        NSString *name = [[fetchedObject valueForKey:@"item"] valueForKey:@"name"];
+        if (![namesOfFavourites containsObject:name]) {
+            [self.favouriteItems addObject:fetchedObject];
+            [namesOfFavourites addObject:name];
+        }
+    }
+}
+
+- (NSArray *)fetch:(NSString *)entityName withPredicate:(NSPredicate *)predicate {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.predicate = predicate;
+    fetchRequest.fetchLimit = 9;
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSError *error;
+    return [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
 }
 
 - (NSUInteger)numberOfItemsInGridView:(AQGridView *)aGridView
@@ -288,7 +461,7 @@
 }
 
 -(void)gridView:(AQGridView *)gridView didSelectItemAtIndex:(NSUInteger)index
-{    
+{
     DiaryEntry *entry = [favouriteItems objectAtIndex:index];
     
     [Helpers selectItem:(FoodTreeItem *)entry.item forMeal:self.selectedMeal withController:self andContext:self.managedObjectContext];
@@ -300,18 +473,6 @@
 - (CGSize) portraitGridCellSizeForGridView:(AQGridView *)aGridView
 {
     return ( CGSizeMake(160.0, 123) );
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return ((interfaceOrientation == UIInterfaceOrientationLandscapeLeft) || (interfaceOrientation == UIInterfaceOrientationLandscapeRight));
 }
 
 - (void)displayFoodTree:(id)sender
@@ -331,10 +492,8 @@
     [self presentViewController:self.foodTreeModal animated:YES completion:nil];
 }
 
-- (void)dismissModal
-{
-    [self dismissViewControllerAnimated:YES completion:nil];   
-}
+#pragma mark -
+#pragma mark Delegate Methods
 
 - (void)dismissItemModal
 {
@@ -348,149 +507,8 @@
     [self refreshDiary];
 }
 
-#pragma mark - 
-#pragma mark Food Diary Table
-- (void)setupFetchedResultsController:(NSString *)mealType
-{
-    // 1 - Decide what Entity you want
-    NSString *entityName = @"DiaryEntry"; // Put your entity name here
-    
-    // 2 - Request that Entity
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:entityName];
-    
-    // 3 - Filter it if you want
-    request.predicate = [NSPredicate predicateWithFormat:@"meal.type like %@ AND meal.startTime == %@", mealType,[[NSUserDefaults standardUserDefaults] objectForKey:@"mealStartTime"]];
-    
-    // 4 - Sort it if you want
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"time"
-                                                                                     ascending:YES]];
-    // 5 - Fetch it
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                        managedObjectContext:self.managedObjectContext
-                                                                          sectionNameKeyPath:nil
-                                                                                   cacheName:nil];
-    [self performFetch];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-   /* if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }*/
-    
-    [self configureCell:cell atIndexPath:indexPath];    
-            
-    return cell;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{    
-    // Check for zero entries    
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
-    if([sectionInfo numberOfObjects] != 0)
-    {
-        // Create the diaryEntry managed object
-        DiaryEntry *diaryEntry = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        
-        // Grab the label via it's tag
-        UILabel *nameLabel = (UILabel *)[cell viewWithTag:100];
-        
-        // Set the name label text
-        nameLabel.text = diaryEntry.item.name;
-        
-        // Grab the image view via it's tag
-        UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
-        
-        // Set the image view
-        imageView.image = [UIImage imageNamed:diaryEntry.item.image];
-  
-        // Grab the delete button via it's tag
-        UIButton *deleteButton = (UIButton *)[cell viewWithTag:103];
-        
-        // Set all the style attributes for the delete button
-        [deleteButton.titleLabel setFont:[UIFont boldSystemFontOfSize:24]];
-        [deleteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [deleteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        [deleteButton.titleLabel setShadowColor:[UIColor blackColor]];
-        [deleteButton.titleLabel setShadowOffset:CGSizeMake(0.0, -1.0)];        
-        UIImage *deleteButtonImage = [[UIImage imageNamed:@"orangeButton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
-        UIImage *deleteButtonImageHighlight = [[UIImage imageNamed:@"orangeButtonHighlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
-        [deleteButton setBackgroundImage:deleteButtonImage forState:UIControlStateNormal];
-        [deleteButton setBackgroundImage:deleteButtonImageHighlight forState:UIControlStateHighlighted];
-        
-        // Set the action for the delete button
-        [deleteButton addTarget:self action:@selector(deleteItem:) forControlEvents:UIControlEventTouchUpInside];
-    }
-}
-
-- (void)deleteItem:(id)sender
-{
-    // Find which cell the delete action originated from
-    UITableViewCell *clickedCell = (UITableViewCell *)[[sender superview] superview];
-    
-    // Get the indexPath of the clicked cell
-    NSIndexPath *indexPath = [self.diaryTableView indexPathForCell:clickedCell];
-    
-    // Create the managed object to be deleted
-    DiaryEntry *itemToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    // Delete the managed object from the managed object context
-    [self.managedObjectContext deleteObject:itemToDelete];
-    
-    // Save the managed object context
-    [self.managedObjectContext save:nil];
-    
-    // Refresh the fetchedResultsController
-    [self performFetch];    
-    
-    [self.diaryTableView beginUpdates];
-    
-    // Delete the (now empty) row on the table
-    [self.diaryTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    
-    [self.diaryTableView endUpdates];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"Settings"]) {
-        SettingsViewController *viewController = [segue destinationViewController];
-        viewController.managedObjectContext = self.managedObjectContext;
-    }
-    
-}
-
-- (void)dismissMealSelectionModal:(NSString *)meal
-{
-    //self.selectedMeal = meal;
-    
-       
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [self viewWillAppear:YES];
-}
-
+#pragma mark -
+#pragma mark Finish & Take Photo
 
 - (BOOL)takePicture {
     
@@ -556,45 +574,5 @@
             [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"mealStartTime"];                    
         });
     });
-}
-
-- (void)finished:(UIButton *)button
-{
-    [self takePicture];
-}
-
-- (void)computeFavourites:(NSString *)selectedMeal
-{
-    self.favouriteItems = [[NSMutableArray alloc] init];
-    
-    NSArray *fetchedObjects = [self fetch:@"DiaryEntry" withPredicate:[NSPredicate predicateWithFormat:@"meal.type like %@", selectedMeal]];
-    
-    NSMutableArray *namesOfFavourites = [[NSMutableArray alloc] init];
-    
-    // If an object with the same name is not already in the favourites list, then add to favourites list
-    for (NSObject *fetchedObject in fetchedObjects) {
-        NSString *name = [[fetchedObject valueForKey:@"item"] valueForKey:@"name"];
-        if (![namesOfFavourites containsObject:name]) {
-            [self.favouriteItems addObject:fetchedObject];
-            [namesOfFavourites addObject:name];
-        }
-    }
-}
-
-- (NSArray *)fetch:(NSString *)entityName withPredicate:(NSPredicate *)predicate {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.predicate = predicate;
-    fetchRequest.fetchLimit = 9;
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSError *error;
-    return [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-}
-
-- (void)viewDidUnload {
-    [self setMealTitle:nil];
-    [self setDiaryTopBorder:nil];
-    [self setDeleteButton:nil];
-    [super viewDidUnload];
 }
 @end
