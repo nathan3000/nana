@@ -413,7 +413,7 @@
 {
     self.favouriteItems = [[NSMutableArray alloc] init];
     
-    NSArray *fetchedObjects = [self fetch:@"DiaryEntry" withPredicate:[NSPredicate predicateWithFormat:@"meal.type like %@", selectedMeal]];
+    NSArray *fetchedObjects = [self fetch:@"DiaryEntry" withPredicate:[NSPredicate predicateWithFormat:@"meal.type like %@", selectedMeal] order:@"time"];
     
     NSMutableArray *namesOfFavourites = [[NSMutableArray alloc] init];
     
@@ -427,10 +427,16 @@
     }
 }
 
-- (NSArray *)fetch:(NSString *)entityName withPredicate:(NSPredicate *)predicate {
+- (NSArray *)fetch:(NSString *)entityName withPredicate:(NSPredicate *)predicate order:(NSString *)order
+{
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.predicate = predicate;
     fetchRequest.fetchLimit = 9;
+    
+    if (order != nil) {
+        fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:order ascending:NO]];
+    }
+    
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     NSError *error;
@@ -464,7 +470,7 @@
 {
     DiaryEntry *entry = [favouriteItems objectAtIndex:index];
     
-    FoodTreeItem *item = [[self fetch:@"FoodTreeItem" withPredicate:[NSPredicate predicateWithFormat:@"name like %@", entry.item.name]] objectAtIndex:0];
+    FoodTreeItem *item = [[self fetch:@"FoodTreeItem" withPredicate:[NSPredicate predicateWithFormat:@"name like %@", entry.item.name] order:nil] objectAtIndex:0];
     
     [Helpers selectItem:item withPreselects:entry.item.options forMeal:self.selectedMeal withController:self andContext:self.managedObjectContext];
     
