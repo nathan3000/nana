@@ -62,7 +62,6 @@
     self.options = [[NSMutableDictionary alloc] init];
     
     for (NSDictionary *dictionary in selectedItem.builder) {
-        NSLog(@"%@", [dictionary objectForKey:@"options"]);
         UIView *section = [[UIView alloc] initWithFrame:CGRectMake(0, 0+(count*220), 720, 200)];
         [section setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"gray_jean"]]];
         [section.layer setBorderColor:[UIColor lightGrayColor].CGColor];
