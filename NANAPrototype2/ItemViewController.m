@@ -172,7 +172,6 @@
     }
     
     if ([self.preselects containsObject:itemName]) {
-        //[cell setSelected:YES];
         [aGridView selectItemAtIndex:index animated:YES scrollPosition:AQGridViewScrollPositionNone];
         [self.selectedOptions setObject:itemName forKey:[NSValue valueWithNonretainedObject:aGridView]];
     }
