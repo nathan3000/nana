@@ -161,7 +161,13 @@
         [cell.captionLabel setText:item.name];
 
     } else {
-        [cell.imageView setImage:[UIImage imageNamed:@"none2.jpg"]];
+        if ([itemName isEqualToString:@"Yes"]) {
+            [cell.imageView setImage:[UIImage imageNamed:@"yes.jpg"]];
+        } else if ([itemName isEqualToString:@"No"]) {
+            [cell.imageView setImage:[UIImage imageNamed:@"no.jpg"]];
+        } else {
+            [cell.imageView setImage:[UIImage imageNamed:@"none2.jpg"]];
+        }
         [cell.captionLabel setText:itemName];
     }
     

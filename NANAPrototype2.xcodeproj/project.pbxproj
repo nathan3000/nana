@@ -98,6 +98,10 @@
 		D88E2B57167A36D2006CD0BF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D88E2B55167A36D2006CD0BF /* MainStoryboard.storyboard */; };
 		D897F04916820FE30052F3D6 /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D897F04816820FE30052F3D6 /* ItemViewController.m */; };
 		D897F04C1682232C0052F3D6 /* orange-juice.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D897F04B1682232C0052F3D6 /* orange-juice.jpg */; };
+		D8AB2B7E17233BF8003B31EC /* no.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8AB2B7C17233BF8003B31EC /* no.jpg */; };
+		D8AB2B7F17233BF8003B31EC /* yes.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8AB2B7D17233BF8003B31EC /* yes.jpg */; };
+		D8AB2B8117233D51003B31EC /* butter.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8AB2B8017233D51003B31EC /* butter.jpg */; };
+		D8AB2B8317233EE9003B31EC /* spreadable-butter.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8AB2B8217233EE9003B31EC /* spreadable-butter.jpg */; };
 		D8ABE9EC16B925E900F8AC5E /* milk.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8ABE9E216B925E900F8AC5E /* milk.jpg */; };
 		D8ABE9ED16B925E900F8AC5E /* water.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8ABE9E316B925E900F8AC5E /* water.jpg */; };
 		D8ABE9EE16B925E900F8AC5E /* milk-shakes.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D8ABE9E416B925E900F8AC5E /* milk-shakes.jpg */; };
@@ -277,6 +281,10 @@
 		D897F04716820FE30052F3D6 /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
 		D897F04816820FE30052F3D6 /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
 		D897F04B1682232C0052F3D6 /* orange-juice.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "orange-juice.jpg"; sourceTree = "<group>"; };
+		D8AB2B7C17233BF8003B31EC /* no.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no.jpg; sourceTree = "<group>"; };
+		D8AB2B7D17233BF8003B31EC /* yes.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yes.jpg; sourceTree = "<group>"; };
+		D8AB2B8017233D51003B31EC /* butter.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = butter.jpg; sourceTree = "<group>"; };
+		D8AB2B8217233EE9003B31EC /* spreadable-butter.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "spreadable-butter.jpg"; sourceTree = "<group>"; };
 		D8ABE9E216B925E900F8AC5E /* milk.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = milk.jpg; sourceTree = "<group>"; };
 		D8ABE9E316B925E900F8AC5E /* water.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = water.jpg; sourceTree = "<group>"; };
 		D8ABE9E416B925E900F8AC5E /* milk-shakes.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "milk-shakes.jpg"; sourceTree = "<group>"; };
@@ -377,6 +385,10 @@
 		D849ECE3169EDE0200A1ACF6 /* Tree Items */ = {
 			isa = PBXGroup;
 			children = (
+				D8AB2B8217233EE9003B31EC /* spreadable-butter.jpg */,
+				D8AB2B8017233D51003B31EC /* butter.jpg */,
+				D8AB2B7C17233BF8003B31EC /* no.jpg */,
+				D8AB2B7D17233BF8003B31EC /* yes.jpg */,
 				D8458BBB1720A2AF0041983C /* none2.jpg */,
 				D8458BB717209B660041983C /* none.jpg */,
 				D8458BB5172097670041983C /* sugar.jpg */,
@@ -815,6 +827,10 @@
 				D8458BB6172097670041983C /* sugar.jpg in Resources */,
 				D8458BB817209B660041983C /* none.jpg in Resources */,
 				D8458BBC1720A2AF0041983C /* none2.jpg in Resources */,
+				D8AB2B7E17233BF8003B31EC /* no.jpg in Resources */,
+				D8AB2B7F17233BF8003B31EC /* yes.jpg in Resources */,
+				D8AB2B8117233D51003B31EC /* butter.jpg in Resources */,
+				D8AB2B8317233EE9003B31EC /* spreadable-butter.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

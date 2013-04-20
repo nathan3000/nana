@@ -34,11 +34,24 @@
   { "name":"Three", "image":"sugar.jpg", "category":false, "position":2, "parent":"Sugar" },
   { "name":"Four", "image":"sugar.jpg", "category":false, "position":3, "parent":"Sugar" },
  
-  { "name":"White Bread", "image":"white-bread-sliced.jpg", "category":false, "position":0, "parent":"Bread" }, 
+  { "name":"White Bread", "image":"white-bread-sliced.jpg", "category":false, "position":0, "parent":"Bread",
+    "builder":[
+               {
+                  "question":"Toasted?",
+                  "options": [ "Yes", "No"]
+               },
+               {
+                  "question":"Did you have butter?",
+                  "options": [ "No", "Butter", "Spreadable butter" ]
+               }
+    ]},
   { "name":"Wholemeal Bread", "image":"wholemeal-bread-sliced.jpg", "category":false, "position":1, "parent":"Bread" },
  
   { "name":"Porridge", "image":"porridge.jpg", "category":false, "position":0, "parent":"Cereal" },
-  { "name":"Special K", "image":"special-k.jpg", "category":false, "position":1, "parent":"Cereal" }
+  { "name":"Special K", "image":"special-k.jpg", "category":false, "position":1, "parent":"Cereal" },
+ 
+  { "name":"Butter", "image":"butter.jpg", "category":false, "position":0, "parent":"Dairy" },
+  { "name":"Spreadable butter", "image":"spreadable-butter.jpg", "category":false, "position":1, "parent":"Dairy" },
  
  
  ]
