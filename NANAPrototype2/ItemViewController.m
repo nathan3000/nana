@@ -86,8 +86,6 @@
         NSArray *array = [[NSArray alloc] initWithArray:[dictionary objectForKey:@"options"]];
         
         [self.options setObject:array forKey:[NSValue valueWithNonretainedObject:optionsGridView]];
-        
-        //[self.options setObject:@"rawr" forKey:@"rawr"];
                                 
         [section addSubview:optionsGridView];         
         
