@@ -66,7 +66,7 @@
 }
 
 + (void)selectItem:(FoodTreeItem *)item withPreselects:(NSArray *)preselects forMeal:(NSString *)meal withController:(UIViewController *)controller andContext:(NSManagedObjectContext *)managedObjectContext {
-    if (![item respondsToSelector:@selector(builder)]) {
+    if (![item respondsToSelector:@selector(builder)] || item.builder == nil) {
         [self addItemToDiary:item withOptions:nil forMeal:meal withContext:managedObjectContext];
     } else {
         
