@@ -10,6 +10,8 @@
   { "name":"Dessert", "image":"desserts.jpg", "category":true, "position":9 },
   { "name":"Condiments", "image":"condiments.jpg", "category":true, "position":10 },
  
+  { "name":"Convenience", "image":"convenience.jpg", "category":true, "position":11 },
+ 
   { "name":"Tea", "image":"tea.jpg", "category":false, "position":0, "parent":"Drinks",
     "builder":[
                {
@@ -21,14 +23,26 @@
                 "options": [ "None", "One", "Two", "Three", "Four" ]
                }
             ] },
-  { "name":"Coffee", "image":"coffee.jpg", "category":false, "position":1, "parent":"Drinks" },
+  { "name":"Coffee", "image":"coffee.jpg", "category":false, "position":1, "parent":"Drinks",
+     "builder":[
+            {
+            "question":"Did you have milk?",
+            "options": [ "No Milk", "Skimmed", "Semi-skimmed", "Full" ]
+            },
+            {
+            "question":"How many sugars did you have?",
+            "options": [ "None", "One", "Two", "Three", "Four" ]
+            }
+            ]},
   { "name":"Orange Juice", "image":"orange-juice.jpg", "category":false, "position":2, "parent":"Drinks" },
   { "name":"Milk", "image":"milk-semi-skimmed.jpg", "category":true, "position":3, "parent":"Drinks" },
+  { "name":"Water", "image":"water.jpg", "category":false, "position":4, "parent":"Drinks" },
+ 
   { "name":"Semi-skimmed", "image":"milk-semi-skimmed.jpg", "category":false, "position":0, "parent":"Milk" },
   { "name":"Full", "image":"milk-full.jpg", "category":false, "position":1, "parent":"Milk" },
   { "name":"Skimmed", "image":"milk-skimmed.jpg", "category":false, "position":2, "parent":"Milk" },
  
-  { "name":"Sugar", "image":"sugar.jpg", "category":true, "position":0, "parent":"Dessert" },
+  { "name":"Sugar", "image":"sugar.jpg", "category":true, "position":0, "parent":"Tea" },
   { "name":"One", "image":"sugar.jpg", "category":false, "position":0, "parent":"Sugar" },
   { "name":"Two", "image":"sugar.jpg", "category":false, "position":1, "parent":"Sugar" },
   { "name":"Three", "image":"sugar.jpg", "category":false, "position":2, "parent":"Sugar" },
@@ -49,9 +63,106 @@
  
   { "name":"Porridge", "image":"porridge.jpg", "category":false, "position":0, "parent":"Cereal" },
   { "name":"Special K", "image":"special-k.jpg", "category":false, "position":1, "parent":"Cereal" },
+  { "name":"Corn Flakes", "image":"corn-flakes.jpg", "category":false, "position":2, "parent":"Cereal",
+        "builder":[
+          {
+          "question":"Please choose one.",
+          "options": [ "No Milk", "Skimmed", "Semi-skimmed", "Full"]
+          }
+          ] },
  
   { "name":"Butter", "image":"butter.jpg", "category":false, "position":0, "parent":"Dairy" },
   { "name":"Spreadable butter", "image":"spreadable-butter.jpg", "category":false, "position":1, "parent":"Dairy" },
+  { "name":"Cream", "image":"cream.jpg", "category":false, "position":2, "parent":"Dairy", "builder":[{"question":"Please choose one.", "options":["Whipped", "Double"]}] },
+ 
+  { "name":"Whipped", "image":"whipped-cream.jpg", "category":false, "position":0, "parent":"Cream" },
+  { "name":"Double", "image":"double-cream.jpg", "category":false, "position":1, "parent":"Cream" },
+ 
+  { "name":"Cakes", "image":"cakes.jpg", "category":true, "position":0, "parent":"Dessert" },
+  { "name":"Custard", "image":"custard.jpg", "category":false, "position":1, "parent":"Dessert" },
+  { "name":"Biscuits", "image":"milky-way.jpg", "category":true, "position":2, "parent":"Dessert" },
+  { "name":"Chocolate Mousse", "image":"chocolate-mousse.jpg", "category":false, "position":3, "parent":"Dessert" },
+  { "name":"Custard Tart", "image":"custard-tart.jpg", "category":false, "position":4, "parent":"Dessert" },
+ 
+ { "name":"Chocolate Cake", "image":"chocolate-cake.jpg", "category":false, "position":0, "parent":"Cakes", "builder":[{"question":"Please select the type of cake:", "options":["w/ Butter Icing", "Gateau"]}] },
+ 
+  { "name":"w/ Butter Icing", "image":"chocolate-cake-butter-icing.jpg", "category":false, "position":0, "parent":"Chocolate Cake" },
+  { "name":"Gateau", "image":"chocolate-cake.jpg", "category":false, "position":0, "parent":"Chocolate Cake" },
+ 
+  { "name":"Milky Way", "image":"milky-way.jpg", "category":false, "position":0, "parent":"Biscuits" }, 
+  { "name":"Penguin", "image":"penguin.jpg", "category":false, "position":1, "parent":"Biscuits" },
+ 
+
+  { "name":"Ready meals, takeaways", "image":"ready-meals.jpg", "category":true, "position":0, "parent":"Convenience" },
+  { "name":"Gravy", "image":"gravy-instant.jpg", "category":false, "position":1, "parent":"Convenience", "builder":[{"question":"Please choose one.", "options":["Gravy instant granules", "Stock cubes, vegetable", "Stock cubes, beef", "Stock cubes, chicken"]}] },
+  { "name":"Chips", "image":"chips.jpg", "category":false, "position":3, "parent":"Convenience", "builder":[{"question":"Type of chips?", "options":["Oven chips", "Straight cut, fried in oil", "Microwave chips"]}] },
+  { "name":"Baked beans", "image":"baked-beans.jpg", "category":false, "position":4, "parent":"Convenience" },
+  { "name":"Rice", "image":"rice.jpg", "category":false, "position":5, "parent":"Convenience", "builder":[{"question":"Please choose one", "options":["White, boiled", "White, fried", "Risotto", "Rice Pudding"]}] },
+ 
+  { "name":"Lasagne", "image":"lasagne.jpg", "category":false, "position":0, "parent":"Ready meals, takeaways" },
+  { "name":"Cottage pie", "image":"cottage-pie.jpg", "category":false, "position":1, "parent":"Ready meals, takeaways" },
+ 
+  { "name":"Gravy instant granules", "image":"gravy-instant.jpg", "category":false, "position":0, "parent":"Gravy" },
+  { "name":"Stock cubes, vegetable", "image":"stock-cubes-veg.jpg", "category":false, "position":1, "parent":"Gravy" },
+  { "name":"Stock cubes, beef", "image":"stock-cubes-beef.jpg", "category":false, "position":2, "parent":"Gravy" },
+  { "name":"Stock cubes, chicken", "image":"stock-cubes-chicken.jpg", "category":false, "position":3, "parent":"Gravy" },
+  
+ 
+  { "name":"Banana", "image":"banana.jpg", "category":false, "position":0, "parent":"Fruit" },
+  { "name":"Raspberries", "image":"raspberries.jpg", "category":false, "position":1, "parent":"Fruit" },
+  { "name":"Strawberries", "image":"strawberries.jpg", "category":false, "position":2, "parent":"Fruit" },
+  { "name":"Citrus", "image":"citrus.jpg", "category":true, "position":3, "parent":"Fruit" },
+ 
+  { "name":"Orange", "image":"orange.jpg", "category":false, "position":0, "parent":"Citrus" },
+  { "name":"Clementine", "image":"clementine.jpg", "category":false, "position":1, "parent":"Citrus" },
+  { "name":"Satsuma", "image":"satsuma.jpg", "category":false, "position":2, "parent":"Citrus" },
+  { "name":"Tangerine", "image":"tangerine.jpg", "category":false, "position":3, "parent":"Citrus" },
+  { "name":"Lemon", "image":"lemon.jpg", "category":false, "position":4, "parent":"Citrus" },
+  { "name":"Grapefruit", "image":"grapefruit.jpg", "category":false, "position":5, "parent":"Citrus" },
+  
+ 
+  { "name":"Lamb", "image":"lamb.jpg", "category":true, "position":0, "parent":"Meat" },
+  { "name":"Pork, Bacon & Ham", "image":"ham.jpg", "category":true, "position":1, "parent":"Meat" },
+  { "name":"Beef", "image":"beef.jpg", "category":true, "position":2, "parent":"Meat" },
+ 
+  { "name":"Lamb Liver", "image":"lamb-liver.jpg", "category":false, "position":0, "parent":"Lamb" },
+ 
+  { "name":"Ham", "image":"ham.jpg", "category":false, "position":0, "parent":"Pork, Bacon & Ham" },
+ 
+  { "name":"Mince", "image":"beef-mince.jpg", "category":false, "position":0, "parent":"Beef", "builder":[{"question":"Please choose one.", "options":["Average", "Extra Lean", "Pie filling"]}] },
+  { "name":"Beef slices", "image":"beef-slices.jpg", "category":false, "position":1, "parent":"Beef" },
+  { "name":"Stewing steak", "image":"stewing-steak.jpg", "category":false, "position":2, "parent":"Beef" },
+ 
+  { "name":"Potato", "image":"potatoes.jpg", "category":true, "position":0, "parent":"Vegetables"},
+  { "name":"Salad", "image":"salad.jpg", "category":true, "position":1, "parent":"Vegetables" },
+  { "name":"Cabbage", "image":"cabbage.jpg", "category":true, "position":2, "parent":"Vegetables" },
+ 
+  { "name":"White Cabbage", "image":"white-cabbage.jpg", "category":false, "position":0, "parent":"Cabbage", "builder": [{"question":"Please choose a cooking method:", "options":["Boiled","Fried"]}] },
+ 
+ 
+  { "name":"Potatoes", "image":"potatoes.jpg", "category":false, "position":0, "parent":"Potato", "builder":[
+                                                                                                            {
+                                                                                                            "question":"Please choose a cooking method:",
+                                                                                                            "options": [ "Baked", "Boiled", "Roasted", "Mashed"]
+                                                                                                            }
+                                                                                                            ] },
+ 
+  { "name":"Baked", "image":"baked-potato.jpg", "category":false, "position":0, "parent":"Potatoes" },
+ 
+  { "name":"Boiled", "image":"boiled-potato.jpg", "category":false, "position":0, "parent":"Potatoes" },
+ 
+  { "name":"Roasted", "image":"roasted-potato.jpg", "category":false, "position":0, "parent":"Potatoes" },
+ 
+  { "name":"Mashed", "image":"instant-potato.jpg", "category":false, "position":0, "parent":"Potatoes" },
+ 
+  { "name":"Instant Potato", "image":"instant-potato.jpg", "category":false, "position":0, "parent":"Potato" },
+ 
+  { "name":"Side salad", "image":"salad.jpg", "category":false, "position":0, "parent":"Salad" },
+ 
+  { "name":"Table sauces", "image":"mayo.jpg", "category":true, "position":0, "parent":"Condiments" },
+ 
+  { "name":"Mayonaise", "image":"mayo.jpg", "category":false, "position":0, "parent":"Table sauces" },
+ 
  
  
  ]
