@@ -50,10 +50,12 @@
     [label setFont:[UIFont systemFontOfSize:60]];
     [self.view addSubview:label];
     
+    /*
     UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 200, 150)];
     [image setImage:[UIImage imageNamed:selectedItem.image]];
     [self.view addSubview:image];
     
+     */
     UIView *sectionContainer = [[UIView alloc] initWithFrame:CGRectMake(40, 180, 720, 500)];
     [self.view addSubview:sectionContainer];
     
